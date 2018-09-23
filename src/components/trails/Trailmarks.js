@@ -4,6 +4,7 @@ import { compose } from 'redux'
 import { connect } from 'react-redux'
 import { firestoreConnect } from 'react-redux-firebase'
 import PropTypes from 'prop-types'
+import Spinner from '../layout/Spinner'
 
 class Trailmarks extends Component {
   render () {
@@ -16,7 +17,7 @@ class Trailmarks extends Component {
             <div className='col-md-6'>
               <h2>
                 {' '}
-                <i class='far fa-compass'> Trails</i>
+                <i className='far fa-compass'> Trails</i>
               </h2>
             </div>
             <div className='col-md-6' />
@@ -52,7 +53,7 @@ class Trailmarks extends Component {
         </div>
       )
     } else {
-      return <h1>Loading...</h1>
+      return <Spinner />
     }
   }
 }

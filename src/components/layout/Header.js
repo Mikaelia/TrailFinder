@@ -13,6 +13,7 @@ const Header = props => {
           <ul className='navbar-nav mr-auto'>
             <li className='nav-item'>
               <Link to='/' className='nav-link'>Home</Link>
+              <Link to='/trailmarks' className='nav-link'>Trailmarks</Link>
             </li>
           </ul>
         </div>
