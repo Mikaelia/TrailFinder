@@ -15,8 +15,6 @@ class TrailDetails extends Component {
       .then(history.push('/'))
   }
 
-  onChange = e => this.setState({ [e.target.name]: e.target.value })
-
   render () {
     const { trail } = this.props
     if (trail) {

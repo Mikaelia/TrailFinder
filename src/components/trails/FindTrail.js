@@ -1,89 +1,74 @@
-import React, { Component } from 'react'
-import { Consumer } from '../../context'
-import TextInputGroup from '../layout/TextInputGroup'
-import uuid from 'uuid'
-
-class Login extends Component {
-  state = {
-    name: '',
-    email: '',
-    phone: ''
-  }
-  onSubmit = (dispatch, e) => {
+{
+  /*
+class AddTrail extends Component {
+  onSubmit = e => {
     e.preventDefault()
 
-    const { name, email, phone } = this.state
-
-    const newContact = {
-      id: uuid(),
+    const {
       name,
-      email,
-      phone
+      length,
+      location,
+      latitude,
+      longitude,
+      summary,
+      difficulty,
+      stars,
+      starVotes,
+      url,
+      imgMedium,
+      ascent,
+      descent,
+      conditionDetails,
+      conditionDate,
+      firestore,
+      history
+    } = this.props
+
+    const newTrail = {
+      name: name,
+      length: length,
+      location: location,
+      latitude: latitude,
+      longitude: longitude,
+      summary: summary,
+      difficulty: difficulty,
+      stars: stars,
+      starVotes: starVotes,
+      url: url,
+      imgMedium: imgMedium,
+      ascent: ascent,
+      descent: descent,
+      conditionDetails: conditionDetails,
+      conditionDate: conditionDate,
+      notes: ''
     }
 
-    dispatch({
-      type: 'ADD_CONTACT',
-      payload: newContact
-    })
-
-    this.setState({
-      name: '',
-      email: '',
-      phone: ''
-    })
+    firestore
+      .add({ collection: 'trailmarks' }, newTrail)
+      .then(() => history.push('/'))
   }
 
-  onChange = e => this.setState({ [e.target.name]: e.target.value })
-
   render () {
-    const { name, email, phone } = this.state
-
     return (
-      <Consumer>
-        {value => {
-          const { dispatch } = value
-          return (
-            <div className='card mb-3'>
-              <div className='card-header'>
-                <h1>Add Contact</h1>
-                <div className='card-body'>
-                  <form onSubmit={this.onSubmit.bind(this, dispatch)}>
-                    <TextInputGroup
-                      label='Name'
-                      name='name'
-                      placeholder='Enter Name...'
-                      value={name}
-                      onChange={this.onChange}
-                    />
-                    <TextInputGroup
-                      label='Email'
-                      name='email'
-                      type='email'
-                      placeholder='Enter Email...'
-                      value={email}
-                      onChange={this.onChange}
-                    />
-                    <TextInputGroup
-                      label='Phone'
-                      name='phone'
-                      placeholder='Enter Phone...'
-                      value={phone}
-                      onChange={this.onChange}
-                    />
-                    <input
-                      type='submit'
-                      value='Add Contact'
-                      className='btn btn-light btn-block'
-                    />
-                  </form>
-                </div>
-              </div>
-            </div>
-          )
-        }}
-      </Consumer>
+      <div>
+        <div className='row'>
+          <div className='col-md-6'>
+            <Link to='/' className='btn btn-link'>
+              <i className='fas fa-arrow-circle-left' />
+              Back To Dashboard
+            </Link>
+          </div>
+        </div>
+      </div>
     )
   }
 }
 
-export default AddContact
+AddTrail.propTypes = {
+  firestore: PropTypes.object.isRequired
+}
+
+export default firestoreConnect()(AddTrail)
+
+*/
+}
