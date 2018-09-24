@@ -12,6 +12,7 @@ import TrailDetails from './components/trails/TrailDetails'
 import TrailNotes from './components/trails/TrailNotes'
 import FindTrail from './components/pages/FindTrail'
 import Login from './components/auth/Login'
+import Register from './components/auth/Register'
 
 class App extends Component {
   render () {
@@ -26,7 +27,7 @@ class App extends Component {
                 <Route
                   exact
                   path='/login'
-                  component={UserIsAuthenticated(Login)}
+                  component={UserIsNotAuthenticated(Login)}
                 />
                 <Route
                   path='/findtrail'
@@ -34,7 +35,7 @@ class App extends Component {
                 />
                 <Route
                   path='/trailmarks'
-                  component={UserIsAuthenticated(TrailMarks)}
+                  component={UserIsAuthenticated(Trailmarks)}
                 />
                 <Route
                   path='/trail/add'
@@ -47,6 +48,11 @@ class App extends Component {
                 <Route
                   path='/trail/notes/:id'
                   component={UserIsAuthenticated(TrailNotes)}
+                />
+                <Route
+                  exact
+                  path='/register'
+                  component={UserIsNotAuthenticated(Register)}
                 />
               </Switch>
             </div>
