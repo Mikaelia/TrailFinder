@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import axios from 'axios'
+import { firestoreConnect } from 'react-redux-firebase'
 
 class GetTrail extends Component {
   state = {
@@ -8,17 +9,31 @@ class GetTrail extends Component {
   }
 
   componentDidMount () {
-    // eventually you will use props for query params
+    const { lat, lng } = this.props
+
     axios
       .get(
-        'https://www.hikingproject.com/data/get-trails?lat=40.0274&lon=-105.2519&maxDistance=10&maxResults=1&key=200339330-556c3c08bab51add2eafd094be79c93f'
+        `https://www.hikingproject.com/data/get-trails?lat=${lat}&lon=${lng}&maxDistance=10&maxResults=1&key=200339330-556c3c08bab51add2eafd094be79c93f`
       )
-      .then(res => this.setState(res.data.trails[0]))
+      .then(res => {
+        const trails = res.data.trails.map(el => {
+          el.trailID = el.id
+          delete el.id
 
-    // const trails = res.data
-    // this.setState({ trails: { trails } })
+          return el
+        })
 
-    // Can split this into two components--send the response as props to display component.
+        this.setState(trails[0])
+      })
+  }
+
+  onClick = e => {
+    const newTrail = this.state
+    const { firestore } = this.props
+
+    firestore
+      .add({ collection: 'trailmarks' }, newTrail)
+      .then(console.log('successs!'))
   }
 
   render () {
@@ -26,8 +41,6 @@ class GetTrail extends Component {
       name,
       length,
       location,
-      latitude,
-      longitude,
       summary,
       difficulty,
       stars,
@@ -52,9 +65,6 @@ class GetTrail extends Component {
           <li className='list-group-item'>Link: {url}</li>
           <li className='list-group-item'>Length: {length}</li>
           <li className='list-group-item'>Location: {location}</li>
-          <li className='list-group-item'>
-            Coordinates: {latitude}{longitude}
-          </li>
           <li className='list-group-item'>Description: {summary}</li>
           <li className='list-group-item'>Difficulty: {difficulty}</li>
           <li className='list-group-item'>
@@ -64,11 +74,12 @@ class GetTrail extends Component {
             Elevation Change: {ascent}, {descent}
           </li>
           <li className='list-group-item'>
-            Condition: {conditionDetails} <span> {conditionDate}</span>
+            Condition Details: {conditionDetails} <span> {conditionDate}</span>
           </li>
         </ul>
+        <button onClick={this.onClick}>Save Trail</button>
       </div>
     )
   }
 }
-export default GetTrail
+export default firestoreConnect()(GetTrail)

@@ -50,11 +50,18 @@ class AppNavbar extends Component {
           <div className='collapse navbar-collapse' id='navbarMain'>
             <ul className='navbar-nav mr-auto'>
               {isAuthenticated
-                ? <li className='nav-link'>
-                  <Link to='/' className='nav-link'>
-                      Dashboard
-                    </Link>
-                </li>
+                ? <ul className='navbar-nav ml-auto'>
+                  <li className='nav-link'>
+                    <Link to='/map' className='nav-link'>
+                        Find
+                      </Link>
+                  </li>
+                  <li className='nav-link'>
+                    <Link to='/trailmarks' className='nav-link'>
+                        Trailmarks
+                      </Link>
+                  </li>
+                </ul>
                 : null}
             </ul>
             {isAuthenticated

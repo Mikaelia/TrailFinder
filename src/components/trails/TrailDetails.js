@@ -5,8 +5,37 @@ import { compose } from 'redux'
 import { connect } from 'react-redux'
 import { firestoreConnect } from 'react-redux-firebase'
 import Spinner from '../layout/Spinner'
+import classnames from 'classnames'
+
+// Toggle Completed/ Not Completed
+// Show Notes
+// Show Name
+// Share trail ( if time )
 
 class TrailDetails extends Component {
+  state = {
+    notes: '',
+    completed: false
+  }
+
+  // Store note in DB
+  noteSubmit = e => {
+    e.preventDefault()
+
+    const { trail, firestore, history } = this.props
+
+    const updTrail = {
+      notes: this.state.notes,
+      completed: this.state.completed
+    }
+
+    firestore
+      .update({ collection: 'trailmarks', doc: trail.id }, updTrail)
+      .then(history.push('/trailmarks'))
+  }
+
+  onChange = e => this.setState({ [e.target.name]: e.target.value })
+
   onDeleteClick = () => {
     const { trail, firestore, history } = this.props
 
@@ -17,6 +46,34 @@ class TrailDetails extends Component {
 
   render () {
     const { trail } = this.props
+    const { notes } = this.state
+
+    console.log({ trail })
+
+    // Notes Form
+
+    let notesForm = (
+      <form onSubmit={this.noteSubmit}>
+        <div className='input-group'>
+          <input
+            type='text'
+            className='form-control'
+            name='notes'
+            placeholder='Add Note'
+            value={notes}
+            onChange={this.onChange}
+          />
+          <div className='input-group-append'>
+            <input
+              type='submit'
+              value='Update'
+              className='btn btn-outline-dark'
+            />
+          </div>
+        </div>
+      </form>
+    )
+
     if (trail) {
       return (
         <div>
@@ -39,6 +96,29 @@ class TrailDetails extends Component {
             </div>
           </div>
 
+          {/* Show Completed */}
+          <div className='col-md-4 col-sm-6'>
+            <h3 className='pull-right'>
+              Completed:{' '}
+              <span
+                className={classnames({
+                  'text-danger': !trail.completed,
+                  'text-success': trail.completed
+                })}
+              />{' '}
+              <small>
+                <a
+                  href='#!'
+                  onClick={() =>
+                    this.setState({
+                      completed: !this.state.completed
+                    })}
+                />
+              </small>
+            </h3>
+            {notesForm}
+          </div>
+
           <hr />
           <div className='card'>
             <h3 className='card-header'>
@@ -46,17 +126,9 @@ class TrailDetails extends Component {
             </h3>
             <div className='card-body'>
               <hr />
-              <ul className='list-group'>
-                <li className='list-group-item'>
-                  Location: {trail.location}
-                </li>
-                <li className='list-group-item'>
-                  Length: {trail.length}
-                </li>
-                <li className='list-group-item'>
-                  Notes: {trail.notes}
-                </li>
-              </ul>
+              <li className='list-group-item'>
+                Notes: {trail.notes}
+              </li>
             </div>
           </div>
         </div>
@@ -66,6 +138,7 @@ class TrailDetails extends Component {
     }
   }
 }
+
 TrailDetails.propTypes = {
   firestore: PropTypes.object.isRequired
 }

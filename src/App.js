@@ -11,6 +11,7 @@ import AddTrail from './components/trails/GetTrail'
 import TrailDetails from './components/trails/TrailDetails'
 import TrailNotes from './components/trails/TrailNotes'
 import FindTrail from './components/pages/FindTrail'
+import Welcome from './components/pages/Welcome'
 import Login from './components/auth/Login'
 import Register from './components/auth/Register'
 import MapView from './components/maps/MapView'
@@ -24,15 +25,20 @@ class App extends Component {
             <AppNavbar />
             <div className='container'>
               <Switch>
-                <Route exact path='/' component={UserIsAuthenticated(Login)} />
+                <Route
+                  exact
+                  path='/'
+                  component={UserIsAuthenticated(Welcome)}
+                />
                 <Route
                   exact
                   path='/login'
                   component={UserIsNotAuthenticated(Login)}
                 />
                 <Route
-                  path='/findtrail'
-                  component={UserIsAuthenticated(FindTrail)}
+                  exact
+                  path='/register'
+                  component={UserIsNotAuthenticated(Register)}
                 />
                 <Route
                   path='/trailmarks'
@@ -52,13 +58,12 @@ class App extends Component {
                 />
                 <Route
                   exact
-                  path='/register'
-                  component={UserIsNotAuthenticated(Register)}
+                  path='/map'
+                  component={UserIsAuthenticated(MapView)}
                 />
                 <Route
-                  exact
-                  path='/mapview'
-                  component={UserIsAuthenticated(MapView)}
+                  path='/returntrail/:lat/:lng'
+                  component={UserIsAuthenticated(FindTrail)}
                 />
               </Switch>
             </div>
