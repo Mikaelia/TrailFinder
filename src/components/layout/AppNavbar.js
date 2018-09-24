@@ -37,7 +37,7 @@ class AppNavbar extends Component {
       <nav className='navbar navbar-expand-md navbar-dark bg-primary mb-4'>
         <div className='container'>
           <Link to='/' className='navbar-brand'>
-            ClientPanel
+            TrailFinder
           </Link>
           <button
             className='navbar-toggler'

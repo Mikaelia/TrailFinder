@@ -13,6 +13,7 @@ import TrailNotes from './components/trails/TrailNotes'
 import FindTrail from './components/pages/FindTrail'
 import Login from './components/auth/Login'
 import Register from './components/auth/Register'
+import MapView from './components/maps/MapView'
 
 class App extends Component {
   render () {
@@ -53,6 +54,11 @@ class App extends Component {
                   exact
                   path='/register'
                   component={UserIsNotAuthenticated(Register)}
+                />
+                <Route
+                  exact
+                  path='/mapview'
+                  component={UserIsAuthenticated(MapView)}
                 />
               </Switch>
             </div>
