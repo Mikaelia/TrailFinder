@@ -15,6 +15,7 @@ import Welcome from './components/pages/Welcome'
 import Login from './components/auth/Login'
 import Register from './components/auth/Register'
 import MapView from './components/maps/MapView'
+import MyFancyComponent from './components/maps/Map'
 
 class App extends Component {
   render () {
@@ -59,6 +60,11 @@ class App extends Component {
                 <Route
                   exact
                   path='/map'
+                  component={UserIsAuthenticated(MyFancyComponent)}
+                />
+                <Route
+                  exact
+                  path='/mapview'
                   component={UserIsAuthenticated(MapView)}
                 />
                 <Route

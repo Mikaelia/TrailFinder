@@ -1,9 +1,10 @@
 import React, { Component } from 'react'
-import Map from './Map'
+import MyFancyComponent from './Map'
 
 class MapView extends Component {
   constructor (props) {
     super(props)
+    // Default lat/lng set in component
     this.state = {
       currentLatLng: {
         lat: 0,
@@ -42,7 +43,7 @@ class MapView extends Component {
   render () {
     const map = this.state.isMarkerShown
       ? <div>
-        <Map currentLocation={this.state.currentLatLng} />
+        <MyFancyComponent currentLocation={this.state.currentLatLng} />
       </div>
       : false
     return map

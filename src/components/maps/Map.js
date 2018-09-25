@@ -1,55 +1,76 @@
-import React, { Component } from 'react'
+import React from 'react'
+import { compose, withProps } from 'recompose'
 import { withGoogleMap, GoogleMap, Marker } from 'react-google-maps'
-import { Link } from 'react-router-dom'
 
-class Map extends Component {
-  renderMarker (lat, lng, marker) {
-    console.log('renderMarker')
-    if (marker) {
-      return <Marker position={{ lat, lng }} />
-    }
+const MyMapComponent = compose(
+  withProps({
+    loadingElement: <div style={{ height: `100%` }} />,
+    containerElement: <div style={{ height: `400px` }} />,
+    mapElement: <div style={{ height: `100%` }} />
+  }),
+  withGoogleMap
+)(props => (
+  <GoogleMap defaultZoom={8} defaultCenter={props.defaultCenter}>
+    {props.isMarkerShown &&
+      <Marker
+        position={props.defaultCenter}
+        ref={props.onMarkerMounted}
+        onDragEnd={props.onDragEnd}
+        draggable
+      />}
 
-    return false
+  </GoogleMap>
+))
+
+class MyFancyComponent extends React.PureComponent {
+  state = {
+    isMarkerShown: false,
+    lat: 0,
+    lng: 0
+  }
+
+  componentWillMount () {
+    const refs = {}
+
+    this.setState({
+      onMarkerMounted: ref => {
+        refs.marker = ref
+      },
+
+      onDragEnd: () => {
+        const position = refs.marker.getPosition()
+        const lat = parseFloat(position.lat())
+        const lng = parseFloat(position.lng())
+
+        this.setState({ lat: lat, lng: lng })
+        console.log(this.state)
+      }
+    })
+  }
+
+  componentDidMount () {
+    this.delayedShowMarker()
+  }
+
+  delayedShowMarker = () => {
+    setTimeout(() => {
+      this.setState({ isMarkerShown: true })
+    }, 3000)
   }
 
   render () {
+    const { isMarkerShown, onDragEnd, onMarkerMounted } = this.state
+
     const { lat, lng } = this.props.currentLocation
 
-    const GoogleMapExample = withGoogleMap(props => (
-      <GoogleMap
-        defaultCenter={{ lat: 37.78202, lng: -122.40842 }}
-        defaultZoom={13}
-      >
-        <Marker position={{ lat, lng }} />
-      </GoogleMap>
-    ))
-
     return (
-      <div>
-        {lat && lng
-          ? <div>
-            <h1>Your Location:</h1>
-            <h3>{lat}, {lng}</h3>
-          </div>
-          : null}
-        <div>
-          <GoogleMapExample
-            containerElement={
-              <div style={{ height: `500px`, width: '500px' }} />
-            }
-            mapElement={<div style={{ height: `100%` }} />}
-          />
-        </div>
-        <div>
-          <button onClick={this.onDeleteClick} className='btn btn-danger'>
-            Delete
-          </button>
-          <Link to={`/returntrail/${lat}/${lng}`} className='btn btn-dark'>
-            Find Trail
-          </Link>
-        </div>
-      </div>
+      <MyMapComponent
+        isMarkerShown={isMarkerShown}
+        onDragEnd={onDragEnd}
+        onMarkerMounted={onMarkerMounted}
+        defaultCenter={{ lat: lat, lng: lng }}
+      />
     )
   }
 }
-export default Map
+export default MyFancyComponent
