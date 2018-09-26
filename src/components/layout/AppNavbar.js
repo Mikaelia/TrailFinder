@@ -52,7 +52,7 @@ class AppNavbar extends Component {
               {isAuthenticated
                 ? <ul className='navbar-nav ml-auto'>
                   <li className='nav-link'>
-                    <Link to='/map' className='nav-link'>
+                    <Link to='/mapview' className='nav-link'>
                         Find
                       </Link>
                   </li>

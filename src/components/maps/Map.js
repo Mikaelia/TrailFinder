@@ -1,6 +1,7 @@
 import React from 'react'
 import { compose, withProps } from 'recompose'
 import { withGoogleMap, GoogleMap, Marker } from 'react-google-maps'
+import { Link } from 'react-router-dom'
 
 const MyMapComponent = compose(
   withProps({
@@ -23,10 +24,11 @@ const MyMapComponent = compose(
 ))
 
 class MyFancyComponent extends React.PureComponent {
+  // @todo --> add lat/lng to redux state to remove conditionals
   state = {
     isMarkerShown: false,
-    lat: 0,
-    lng: 0
+    updLat: 0,
+    updLng: 0
   }
 
   componentWillMount () {
@@ -39,10 +41,10 @@ class MyFancyComponent extends React.PureComponent {
 
       onDragEnd: () => {
         const position = refs.marker.getPosition()
-        const lat = parseFloat(position.lat())
-        const lng = parseFloat(position.lng())
+        const updLat = parseFloat(position.lat())
+        const updLng = parseFloat(position.lng())
 
-        this.setState({ lat: lat, lng: lng })
+        this.setState({ updLat: updLat, updLng: updLng })
         console.log(this.state)
       }
     })
@@ -59,17 +61,50 @@ class MyFancyComponent extends React.PureComponent {
   }
 
   render () {
-    const { isMarkerShown, onDragEnd, onMarkerMounted } = this.state
+    const {
+      isMarkerShown,
+      onDragEnd,
+      onMarkerMounted,
+      updLat,
+      updLng
+    } = this.state
 
     const { lat, lng } = this.props.currentLocation
 
     return (
-      <MyMapComponent
-        isMarkerShown={isMarkerShown}
-        onDragEnd={onDragEnd}
-        onMarkerMounted={onMarkerMounted}
-        defaultCenter={{ lat: lat, lng: lng }}
-      />
+      <div>
+        <div>
+          <h1>Your Location:</h1>
+          {updLat && updLng
+            ? <h3>{updLat}, {updLng}</h3>
+            : <h3>{lat}, {lng}</h3>}
+        </div>
+
+        <div>
+          {updLat && updLng
+            ? <Link
+              to={`/returntrail/${updLat}/${updLng}`}
+              className='btn btn-dark'
+              >
+              {' '}Find Trail
+              </Link>
+            : <Link to={`/returntrail/${lat}/${lng}`} className='btn btn-dark'>
+              {' '}Find Trail
+              </Link>}
+
+        </div>
+
+        <MyMapComponent
+          isMarkerShown={isMarkerShown}
+          onDragEnd={onDragEnd}
+          onMarkerMounted={onMarkerMounted}
+          defaultCenter={
+            updLat && updLng
+              ? { lat: updLat, lng: updLng }
+              : { lat: lat, lng: lng }
+          }
+        />
+      </div>
     )
   }
 }

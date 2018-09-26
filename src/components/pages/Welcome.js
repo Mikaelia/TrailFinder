@@ -5,7 +5,7 @@ export default () => {
   return (
     <div>
       <h1>Welcome</h1>
-      <Link to='/map' className='btn btn-dark'> Let's Get Started</Link>
+      <Link to='/mapview' className='btn btn-dark'> Let's Get Started</Link>
     </div>
   )
 }

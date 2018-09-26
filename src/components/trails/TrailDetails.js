@@ -6,6 +6,7 @@ import { connect } from 'react-redux'
 import { firestoreConnect } from 'react-redux-firebase'
 import Spinner from '../layout/Spinner'
 import classnames from 'classnames'
+import TrailView from './TrailView'
 
 // Toggle Completed/ Not Completed
 // Show Notes
@@ -22,7 +23,7 @@ class TrailDetails extends Component {
   noteSubmit = e => {
     e.preventDefault()
 
-    const { trail, firestore, history } = this.props
+    const { trail, firestore} = this.props
 
     const updTrail = {
       notes: this.state.notes,
@@ -31,7 +32,6 @@ class TrailDetails extends Component {
 
     firestore
       .update({ collection: 'trailmarks', doc: trail.id }, updTrail)
-      .then(history.push('/trailmarks'))
   }
 
   onChange = e => this.setState({ [e.target.name]: e.target.value })
@@ -41,7 +41,7 @@ class TrailDetails extends Component {
 
     firestore
       .delete({ collection: 'trailmarks', doc: trail.id })
-      .then(history.push('/'))
+      .then(history.push('/trailmarks'))
   }
 
   render () {
@@ -75,7 +75,9 @@ class TrailDetails extends Component {
     )
 
     if (trail) {
+      console.log(trail)
       return (
+       
         <div>
           <div className='row'>
             <div className='col-md-6'>
@@ -83,18 +85,6 @@ class TrailDetails extends Component {
                 <i className='fas fa-arrow-circle-left' /> Back To Trailmarks
               </Link>
             </div>
-
-            <div className='col-md-6'>
-              <div className='btn-group float-right'>
-                <Link to={`/trail/notes/${trail.id}`} className='btn btn-dark'>
-                  Trail Notes
-                </Link>
-                <button onClick={this.onDeleteClick} className='btn btn-danger'>
-                  Delete
-                </button>
-              </div>
-            </div>
-          </div>
 
           {/* Show Completed */}
           <div className='col-md-4 col-sm-6'>
@@ -118,12 +108,22 @@ class TrailDetails extends Component {
             </h3>
             {notesForm}
           </div>
+            <div className='col-md-6'>
+              <div className='btn-group float-right'>
+                <Link to={`/trail/notes/${trail.id}`} className='btn btn-dark'>
+                  Trail Notes
+                </Link>
+                <button onClick={this.onDeleteClick} className='btn btn-danger'>
+                  Delete
+                </button>
+              </div>
+            </div>
+          </div>
+          <TrailView trailDetails={trail}/>
+
 
           <hr />
           <div className='card'>
-            <h3 className='card-header'>
-              {trail.name}
-            </h3>
             <div className='card-body'>
               <hr />
               <li className='list-group-item'>

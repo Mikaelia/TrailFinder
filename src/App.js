@@ -7,7 +7,6 @@ import { Provider } from 'react-redux'
 
 import AppNavbar from './components/layout/AppNavbar'
 import Trailmarks from './components/trails/Trailmarks'
-import AddTrail from './components/trails/GetTrail'
 import TrailDetails from './components/trails/TrailDetails'
 import TrailNotes from './components/trails/TrailNotes'
 import FindTrail from './components/pages/FindTrail'
@@ -46,21 +45,12 @@ class App extends Component {
                   component={UserIsAuthenticated(Trailmarks)}
                 />
                 <Route
-                  path='/trail/add'
-                  component={UserIsAuthenticated(AddTrail)}
-                />
-                <Route
                   path='/trail/:id'
                   component={UserIsAuthenticated(TrailDetails)}
                 />
                 <Route
                   path='/trail/notes/:id'
                   component={UserIsAuthenticated(TrailNotes)}
-                />
-                <Route
-                  exact
-                  path='/map'
-                  component={UserIsAuthenticated(MyFancyComponent)}
                 />
                 <Route
                   exact
