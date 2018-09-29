@@ -1,27 +1,37 @@
-import React, { Component } from 'react'
-import MyFancyComponent from './Map'
+import React, { Component } from "react";
+import MyFancyComponent from "./Map";
+import styles from "../../styles/map.css";
 
 class MapView extends Component {
-  constructor (props) {
-    super(props)
+  constructor(props) {
+    super(props);
     // Default lat/lng set in component
     this.state = {
       currentLatLng: {
         lat: 0,
         lng: 0
       },
-      isMarkerShown: false
-    }
+      isMarkerShown: false,
+      showMap: false
+    };
   }
 
-  componentDidMount () {
-    this.getGeoLocation()
+  // Combine with welcome? On Click handler that will toggle state and replace full page
+  // div with button with the map component--conditional rendering.
+
+  componentDidMount() {
+    this.getGeoLocation();
   }
 
-  shouldComponentUpdate (nextProps, nextState) {
-    if (this.state.isMarkerShown !== nextState.isMarkerShown) return true
-    return false
+  shouldComponentUpdate(nextProps, nextState) {
+    if (this.state.isMarkerShown !== nextState.isMarkerShown) return true;
+    return false;
   }
+
+  showMapHandler = () => {
+    this.setState({ showMap: true });
+  };
+
   getGeoLocation = () => {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(position => {
@@ -33,21 +43,36 @@ class MapView extends Component {
             lat: position.coords.latitude,
             lng: position.coords.longitude
           }
-        }))
-      })
+        }));
+      });
     } else {
-      error => console.log(error)
+      error => console.log(error);
     }
-  }
+  };
 
-  render () {
-    const map = this.state.isMarkerShown
-      ? <div>
+  render() {
+    const { showMap } = this.state;
+    //set map component.
+    const map = this.state.isMarkerShown ? (
+      <div>
         <MyFancyComponent currentLocation={this.state.currentLatLng} />
       </div>
-      : false
-    return map
+    ) : (
+      false
+    );
+
+    return (
+      <div className={styles.mapclick}>
+        {showMap ? (
+          map
+        ) : (
+          <div className={styles.mapclick}>
+            <div className="helo">Hi, I'm a div</div>
+            <button onClick={this.showMapHandler}>Click me</button>
+          </div>
+        )}
+      </div>
+    );
   }
 }
-
-export default MapView
+export default MapView;

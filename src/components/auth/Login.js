@@ -5,12 +5,13 @@ import { connect } from "react-redux";
 import { firebaseConnect } from "react-redux-firebase";
 import { notifyUser } from "../../actions/notifyActions";
 import Alert from "../layout/Alert";
-import "../../App.css";
+import "../../styles/Login.css";
 
 class Login extends Component {
   state = {
     email: "",
-    password: ""
+    password: "",
+    showForm: false
   };
 
   onSubmit = e => {
@@ -22,6 +23,7 @@ class Login extends Component {
       .login({ email, password })
       .catch(err => notifyUser("Invalid Login Credentials", "error"));
   };
+
   onChange = e => this.setState({ [e.target.name]: e.target.value });
 
   render() {
@@ -35,38 +37,55 @@ class Login extends Component {
                 {message ? (
                   <Alert message={message} messageType={messageType} />
                 ) : null}
-                <h1 className="login-header">LOGIN</h1>
-                <form autoComplete="nope" onSubmit={this.onSubmit}>
-                  <div className="form-group">
-                    <label htmlFor="email">EMAIL</label>
+                <h1
+                  className="login-header"
+                  onClick={() =>
+                    this.setState({ showForm: !this.state.showForm })
+                  }
+                >
+                  LOGIN
+                  {!this.state.showForm ? (
+                    <small>
+                      <i
+                        className="icon-angle-double-down bounce"
+                        style={{ display: "block", marginTop: "10px" }}
+                      />
+                    </small>
+                  ) : null}
+                </h1>
+                {this.state.showForm ? (
+                  <form autoComplete="nope" onSubmit={this.onSubmit}>
+                    <div className="form-group">
+                      <label htmlFor="email">EMAIL</label>
+                      <input
+                        type="text"
+                        className="form-control"
+                        name="email"
+                        required
+                        value={this.state.email}
+                        onChange={this.onChange}
+                        autoComplete="nope"
+                      />
+                    </div>
+                    <div className="form-group">
+                      <label htmlFor="password">Password</label>
+                      <input
+                        type="password"
+                        className="form-control"
+                        name="password"
+                        required
+                        value={this.state.password}
+                        onChange={this.onChange}
+                        autoComplete="off"
+                      />
+                    </div>
                     <input
-                      type="text"
-                      className="form-control inputTransparent"
-                      name="email"
-                      required
-                      value={this.state.email}
-                      onChange={this.onChange}
-                      autoComplete="nope"
+                      type="submit"
+                      value="Submit"
+                      className="btn btn-block"
                     />
-                  </div>
-                  <div className="form-group">
-                    <label htmlFor="password">Password</label>
-                    <input
-                      type="password"
-                      className="form-control"
-                      name="password"
-                      required
-                      value={this.state.password}
-                      onChange={this.onChange}
-                      autoComplete="off"
-                    />
-                  </div>
-                  <input
-                    type="submit"
-                    value="Submit"
-                    className="btn btn-block"
-                  />
-                </form>
+                  </form>
+                ) : null}
               </div>
             </div>
           </div>

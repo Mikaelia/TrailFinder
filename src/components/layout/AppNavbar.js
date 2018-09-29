@@ -4,6 +4,7 @@ import { compose } from "redux";
 import { connect } from "react-redux";
 import { firebaseConnect } from "react-redux-firebase";
 import PropTypes from "prop-types";
+import "../../styles/AppNavbar.css";
 
 // this will have state, so we are using a class
 class AppNavbar extends Component {
@@ -35,68 +36,56 @@ class AppNavbar extends Component {
 
     return (
       <nav className="navbar navbar-expand-md">
-        <div className="container">
-          <Link to="/" className="navbar-brand">
-            TRAILFINDER
-          </Link>
-          <button
-            className="navbar-toggler"
-            type="button"
-            data-toggle="collapse"
-            data-target="#navbarMain"
-          >
-            <span className="navbar-toggler-icon" />
-          </button>
-          <div className="collapse navbar-collapse" id="navbarMain">
-            <ul className="navbar-nav mr-auto">
-              {isAuthenticated ? (
-                <ul className="navbar-nav ml-auto">
-                  <li className="nav-link">
-                    <Link to="/mapview" className="nav-link">
-                      FIND
-                    </Link>
-                  </li>
-                  <li className="nav-link">
-                    <Link to="/trailmarks" className="nav-link">
-                      TRAILMARKS
-                    </Link>
-                  </li>
-                </ul>
-              ) : null}
-            </ul>
+        <i class="far fa-compass fa-2x nav-item" />
+
+        <Link to="/" className="navbar-brand">
+          TRAILFINDER
+        </Link>
+        <div className="collapse navbar-collapse" id="navbarMain">
+          <ul className="navbar-nav mr-auto">
             {isAuthenticated ? (
               <ul className="navbar-nav ml-auto">
-                <li className="nav-item">
-                  <a href="#!" className="nav-link">
-                    {auth.email}
-                  </a>
-                </li>
-                <li className="nav-item">
-                  <a
-                    href="#!"
-                    className="nav-link"
-                    onClick={this.onLogoutClick}
-                  >
-                    LOGOUT
-                  </a>
-                </li>
-              </ul>
-            ) : null}
-            {!isAuthenticated ? (
-              <ul className="navbar-nav ml-auto">
-                <li className="nav-item">
-                  <Link to="/login" className="nav-link">
-                    LOGIN
+                <li className="nav-link">
+                  <Link to="/mapview" className="nav-link">
+                    FIND
                   </Link>
                 </li>
-                <li className="nav-item">
-                  <Link to="/register" className="nav-link">
-                    REGISTER
+                <li className="nav-link">
+                  <Link to="/trailmarks" className="nav-link">
+                    TRAILMARKS
                   </Link>
                 </li>
               </ul>
             ) : null}
-          </div>
+          </ul>
+          {isAuthenticated ? (
+            <ul className="navbar-nav ml-auto">
+              <li className="nav-item">
+                <a href="#!" className="nav-link">
+                  {auth.email}
+                </a>
+              </li>
+              <li className="nav-item">
+                <a href="#!" className="nav-link" onClick={this.onLogoutClick}>
+                  LOGOUT
+                </a>
+              </li>
+            </ul>
+          ) : null}
+          {!isAuthenticated ? (
+            <ul className="navbar-nav ml-auto">
+              <li className="nav-item">
+                <Link to="/login" className="nav-link">
+                  LOGIN
+                </Link>
+              </li>
+              <li className="nav-item">
+                <Link to="/register" className="nav-link">
+                  REGISTER
+                </Link>
+              </li>
+            </ul>
+          ) : null}
         </div>
       </nav>
     );

@@ -25,6 +25,7 @@ injectGlobal`
     margin: 0;
     padding: 0;
     font-family: 'Montserrat', sans-serif;
+    text-transform: uppercase;
     font-weight: 300;
   }
 `;
