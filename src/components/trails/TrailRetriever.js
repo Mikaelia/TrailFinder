@@ -18,6 +18,13 @@ class TrailRetriever extends Component {
         `https://www.hikingproject.com/data/get-trails?lat=${lat}&lon=${lng}&maxDistance=100&maxResults=200&key=200339330-556c3c08bab51add2eafd094be79c93f`
       )
       .then(res => {
+        console.log('res', res)
+
+        if (res.data.trails.length === 0) {
+          this.props.handler()
+          return
+        }
+
         const random = Math.floor(Math.random() * 200)
         const trails = res.data.trails.map(el => {
           el.trailID = el.id
@@ -28,6 +35,9 @@ class TrailRetriever extends Component {
         })
 
         this.setState(trails[random])
+      })
+      .catch(err => {
+        console.log('err', err)
       })
   }
 
@@ -46,8 +56,7 @@ class TrailRetriever extends Component {
         <h3 className='card-header'>
           Your Trail
         </h3>
-        <TrailView trailDetails = {this.state}
-         />
+        <TrailView trailDetails={this.state} />
         <button onClick={this.onClick}>Save Trail</button>
       </div>
     )

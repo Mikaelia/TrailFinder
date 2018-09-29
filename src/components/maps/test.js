@@ -1,59 +1,40 @@
-import React, { Component } from 'react'
-import { withGoogleMap, GoogleMap, Marker } from 'react-google-maps'
-import { Link } from 'react-router-dom'
+import React from "react";
 
-class Map extends Component {
-  renderMarker (lat, lng, marker) {
-    console.log('renderMarker')
-    if (marker) {
-      return <Marker position={{ lat, lng }} />
-    }
+export default () => {
+  return (
+    <div>
+      <div className="login-wrapper">
+        <div className="login-left">
+          <img src="http://res.cloudinary.com/dzqowkhxu/image/upload/v1513679279/bg-login_bxxfkf.png" />
+          <div className="h1">Enter the Nebula</div>
+        </div>
 
-    return false
-  }
+        <div className="login-right">
+          <div className="h2">Register</div>
 
-  render () {
-    // pass in coordinates from props
-
-    // this will be passed to marker, figure out how to update
-    const { lat, lng } = this.props.currentLocation
-
-    const GoogleMapExample = withGoogleMap(props => (
-      <GoogleMap
-        defaultCenter={{ lat: 37.78202, lng: -122.40842 }}
-        defaultZoom={13}
-      >
-        <Marker position={{ lat, lng }} />
-      </GoogleMap>
-    ))
-
-    return (
-      <div>
-        {lat && lng
-          ? <div>
-            <h1>Your Location:</h1>
-            <h3>{lat}, {lng}</h3>
-          </div>
-          : null}
-        <div>
-
-          <div>
-            <Link to={`/returntrail/${lat}/${lng}`} className='btn btn-dark'>
-              Find Trail
-            </Link>
+          <div className="form-group">
+            <input type="text" id="Email" placeholder="Email" />
+            <label htmlFor="Email">Email</label>
           </div>
 
-          <GoogleMapExample
-            // Change size of map container here:
-            containerElement={
-              <div style={{ height: `500px`, width: '500px' }} />
-            }
-            // Will automatically adjust to fit div
-            mapElement={<div style={{ height: `100%` }} />}
-            loadingElement={<div style={{ height: `100%` }} />}
-          />
+          <div className="form-group">
+            <input type="password" id="Password" placeholder="Password" />
+            <label htmlFor="Password">Password</label>
+          </div>
+
+          <div className="checkbox-container">
+            <input type="checkbox" />
+            <div className="text-checkbox">
+              I agree with the terms of service.
+            </div>
+          </div>
+
+          <div className="button-area">
+            <button className="btn btn-secondary">Login</button>
+            <button className="btn btn-primary">Sign Up</button>
+          </div>
         </div>
       </div>
-    )
-  }
-}
+    </div>
+  );
+};
