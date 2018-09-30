@@ -50,7 +50,8 @@ class AppNavbar extends Component {
             <i class="far fa-compass fa-2x" />
           </div>
           <Link to="/" className={styles.branding}>
-            TRAILFINDER
+            <span style={{ fontWeight: 600 }}>TRAIL</span>
+            FINDER
           </Link>
         </a>
 

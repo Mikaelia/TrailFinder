@@ -5,6 +5,7 @@ import { connect } from "react-redux";
 import { firebaseConnect } from "react-redux-firebase";
 import { notifyUser } from "../../actions/notifyActions";
 import Alert from "../layout/Alert";
+import BlockQuote from "../layout/BlockQuote";
 import styles from "../../styles/Login.css";
 
 class Login extends Component {
@@ -29,65 +30,72 @@ class Login extends Component {
   render() {
     const { message, messageType } = this.props.notify;
     return (
-      <div className={styles.login}>
-        <div className="row">
-          <div className="col-md-6 mx-auto">
-            <div className={styles.loginCard}>
-              <div className={styles.cardBody}>
-                {message ? (
-                  <Alert message={message} messageType={messageType} />
-                ) : null}
-                <h1
-                  className={styles.loginHeader}
-                  onClick={() =>
-                    this.setState({ showForm: !this.state.showForm })
-                  }
-                >
-                  LOGIN
-                  {!this.state.showForm ? (
-                    <small>
-                      <div className={styles.icon}>
-                        <i
-                          className="icon-angle-double-down bounce"
-                          style={{ display: "block", marginTop: "10px" }}
+      <div>
+        <BlockQuote />
+        <div className={styles.login}>
+          <div className="row">
+            <div className="col-md-6 mx-auto">
+              <div className={styles.card}>
+                <div className={styles.cardBody}>
+                  {message ? (
+                    <Alert message={message} messageType={messageType} />
+                  ) : null}
+                  <h1
+                    className={styles.cardHeader}
+                    onClick={() =>
+                      this.setState({ showForm: !this.state.showForm })
+                    }
+                  >
+                    GET STARTED
+                    {!this.state.showForm ? (
+                      <small>
+                        <div className={styles.icon}>
+                          <i
+                            className="icon-angle-double-down bounce"
+                            style={{ display: "block", marginTop: "10px" }}
+                          />
+                        </div>
+                      </small>
+                    ) : null}
+                  </h1>
+                  {this.state.showForm ? (
+                    <form autoComplete="nope" onSubmit={this.onSubmit}>
+                      <div>
+                        <label htmlFor="email" className={styles.label}>
+                          EMAIL
+                        </label>
+                        <input
+                          type="text"
+                          className={styles.input}
+                          name="email"
+                          required
+                          value={this.state.email}
+                          onChange={this.onChange}
+                          autoComplete="nope"
                         />
                       </div>
-                    </small>
+                      <div>
+                        <label htmlFor="password" className={styles.label}>
+                          Password
+                        </label>
+                        <input
+                          type="password"
+                          className={styles.input}
+                          name="password"
+                          required
+                          value={this.state.password}
+                          onChange={this.onChange}
+                          autoComplete="off"
+                        />
+                      </div>
+                      <input
+                        type="submit"
+                        value="Submit"
+                        className={styles.button}
+                      />
+                    </form>
                   ) : null}
-                </h1>
-                {this.state.showForm ? (
-                  <form autoComplete="nope" onSubmit={this.onSubmit}>
-                    <div className="form-group">
-                      <label htmlFor="email">EMAIL</label>
-                      <input
-                        type="text"
-                        className="form-control"
-                        name="email"
-                        required
-                        value={this.state.email}
-                        onChange={this.onChange}
-                        autoComplete="nope"
-                      />
-                    </div>
-                    <div className="form-group">
-                      <label htmlFor="password">Password</label>
-                      <input
-                        type="password"
-                        className="form-control"
-                        name="password"
-                        required
-                        value={this.state.password}
-                        onChange={this.onChange}
-                        autoComplete="off"
-                      />
-                    </div>
-                    <input
-                      type="submit"
-                      value="Submit"
-                      className={styles.button}
-                    />
-                  </form>
-                ) : null}
+                </div>
               </div>
             </div>
           </div>

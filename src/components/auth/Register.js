@@ -5,7 +5,7 @@ import { connect } from "react-redux";
 import { firebaseConnect } from "react-redux-firebase";
 import { notifyUser } from "../../actions/notifyActions";
 import Alert from "../layout/Alert";
-import "../../styles/Register.css";
+import styles from "../../styles/Login.css";
 
 class Register extends Component {
   state = {
@@ -30,43 +30,49 @@ class Register extends Component {
   render() {
     const { message, messageType } = this.props.notify;
     return (
-      <div className="row">
-        <div className="col-md-6 mx-auto">
-          <div className="register-card">
-            <div className="card-body">
-              {message ? (
-                <Alert message={message} messageType={messageType} />
-              ) : null}
-              <h1 className="register-header">Register</h1>
-              <form onSubmit={this.onSubmit}>
-                <div className="form-group">
-                  <label htmlFor="email">Email</label>
+      <div>
+        <div className="row">
+          <div className="col-md-6 mx-auto">
+            <div className={styles.card}>
+              <div className={styles.cardBody}>
+                {message ? (
+                  <Alert message={message} messageType={messageType} />
+                ) : null}
+                <h1 className={styles.cardHeader}>Register</h1>
+                <form onSubmit={this.onSubmit}>
+                  <div>
+                    <label htmlFor="email" className={styles.label}>
+                      Email
+                    </label>
+                    <input
+                      type="text"
+                      className={styles.input}
+                      name="email"
+                      required
+                      value={this.state.email}
+                      onChange={this.onChange}
+                    />
+                  </div>
+                  <div>
+                    <label htmlFor="password" className={styles.label}>
+                      Password
+                    </label>
+                    <input
+                      type="password"
+                      className={styles.input}
+                      name="password"
+                      required
+                      value={this.state.password}
+                      onChange={this.onChange}
+                    />
+                  </div>
                   <input
-                    type="text"
-                    className="form-control"
-                    name="email"
-                    required
-                    value={this.state.email}
-                    onChange={this.onChange}
+                    type="submit"
+                    value="Register"
+                    className={styles.button}
                   />
-                </div>
-                <div className="form-group">
-                  <label htmlFor="password">Password</label>
-                  <input
-                    type="password"
-                    className="form-control"
-                    name="password"
-                    required
-                    value={this.state.password}
-                    onChange={this.onChange}
-                  />
-                </div>
-                <input
-                  type="submit"
-                  value="Register"
-                  className="btn btn-block"
-                />
-              </form>
+                </form>
+              </div>
             </div>
           </div>
         </div>
