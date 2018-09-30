@@ -4,12 +4,13 @@ import { compose } from "redux";
 import { connect } from "react-redux";
 import { firebaseConnect } from "react-redux-firebase";
 import PropTypes from "prop-types";
-import "../../styles/AppNavbar.css";
+import styles from "../../styles/AppNavbar.css";
 
 // this will have state, so we are using a class
 class AppNavbar extends Component {
   state = {
-    isAuthenticated: false
+    isAuthenticated: false,
+    toggleShow: true
   };
 
   // whenever we want to get something from redux state, use getDerivedStateFromProps
@@ -35,58 +36,79 @@ class AppNavbar extends Component {
     const { auth } = this.props;
 
     return (
-      <nav className="navbar navbar-expand-md">
-        <i class="far fa-compass fa-2x nav-item" />
+      <nav className={styles.navbar}>
+        <span className={styles.toggle} id="js-navbar-toggle">
+          <i
+            className="fas fa-bars"
+            onClick={() =>
+              this.setState({ toggleShow: !this.state.toggleShow })
+            }
+          />
+        </span>
+        <a href="#!" className={styles.logo}>
+          <div className={styles.compass}>
+            <i class="far fa-compass fa-2x" />
+          </div>
+          <Link to="/" className={styles.branding}>
+            TRAILFINDER
+          </Link>
+        </a>
 
-        <Link to="/" className="navbar-brand">
-          TRAILFINDER
-        </Link>
-        <div className="collapse navbar-collapse" id="navbarMain">
-          <ul className="navbar-nav mr-auto">
-            {isAuthenticated ? (
-              <ul className="navbar-nav ml-auto">
-                <li className="nav-link">
-                  <Link to="/mapview" className="nav-link">
-                    FIND
-                  </Link>
-                </li>
-                <li className="nav-link">
-                  <Link to="/trailmarks" className="nav-link">
-                    TRAILMARKS
-                  </Link>
-                </li>
-              </ul>
-            ) : null}
+        {isAuthenticated ? (
+          <ul
+            className={
+              this.state.toggleShow ? `${styles.active}` : `${styles.mainNav}`
+            }
+            id="jsMenu"
+          >
+            <li className={styles.navli}>
+              <Link to="/mapview" className={styles.navlinks}>
+                FIND
+              </Link>
+            </li>
+
+            <li className={styles.navli}>
+              <Link to="/trailmarks" className={styles.navlinks}>
+                TRAILMARKS
+              </Link>
+            </li>
+
+            <li className={styles.navli}>
+              <a href="#!" className={styles.navlinks}>
+                {auth.email}
+              </a>
+            </li>
+
+            <li className={styles.navli}>
+              <a
+                href="#!"
+                className={styles.navlinks}
+                onClick={this.onLogoutClick}
+              >
+                LOGOUT
+              </a>
+            </li>
           </ul>
-          {isAuthenticated ? (
-            <ul className="navbar-nav ml-auto">
-              <li className="nav-item">
-                <a href="#!" className="nav-link">
-                  {auth.email}
-                </a>
-              </li>
-              <li className="nav-item">
-                <a href="#!" className="nav-link" onClick={this.onLogoutClick}>
-                  LOGOUT
-                </a>
-              </li>
-            </ul>
-          ) : null}
-          {!isAuthenticated ? (
-            <ul className="navbar-nav ml-auto">
-              <li className="nav-item">
-                <Link to="/login" className="nav-link">
-                  LOGIN
-                </Link>
-              </li>
-              <li className="nav-item">
-                <Link to="/register" className="nav-link">
-                  REGISTER
-                </Link>
-              </li>
-            </ul>
-          ) : null}
-        </div>
+        ) : (
+          <ul
+            className={
+              this.state.toggleShow ? `${styles.active}` : `${styles.mainNav}`
+            }
+            id="jsMenu"
+          >
+            <li className={styles.navli}>
+              <Link to="/login" className={styles.toplink}>
+                LOGIN
+              </Link>
+            </li>
+
+            <li className={styles.navli}>
+              <Link to="/register" className={styles.navlinks}>
+                REGISTER
+              </Link>
+            </li>
+          </ul>
+        )}
       </nav>
     );
   }

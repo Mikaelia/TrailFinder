@@ -17,7 +17,9 @@ injectGlobal`
   }
 
   *, *:before, *:after {
-    box-sizing: inherit;
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
   }
 
   body {
@@ -29,3 +31,7 @@ injectGlobal`
     font-weight: 300;
   }
 `;
+
+if (module.hot) {
+  module.hot.accept();
+}

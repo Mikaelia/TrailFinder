@@ -5,7 +5,7 @@ import { connect } from "react-redux";
 import { firebaseConnect } from "react-redux-firebase";
 import { notifyUser } from "../../actions/notifyActions";
 import Alert from "../layout/Alert";
-import "../../styles/Login.css";
+import styles from "../../styles/Login.css";
 
 class Login extends Component {
   state = {
@@ -29,16 +29,16 @@ class Login extends Component {
   render() {
     const { message, messageType } = this.props.notify;
     return (
-      <div className="login">
+      <div className={styles.login}>
         <div className="row">
           <div className="col-md-6 mx-auto">
-            <div className="login-card">
-              <div className="card-body">
+            <div className={styles.loginCard}>
+              <div className={styles.cardBody}>
                 {message ? (
                   <Alert message={message} messageType={messageType} />
                 ) : null}
                 <h1
-                  className="login-header"
+                  className={styles.loginHeader}
                   onClick={() =>
                     this.setState({ showForm: !this.state.showForm })
                   }
@@ -46,10 +46,12 @@ class Login extends Component {
                   LOGIN
                   {!this.state.showForm ? (
                     <small>
-                      <i
-                        className="icon-angle-double-down bounce"
-                        style={{ display: "block", marginTop: "10px" }}
-                      />
+                      <div className={styles.icon}>
+                        <i
+                          className="icon-angle-double-down bounce"
+                          style={{ display: "block", marginTop: "10px" }}
+                        />
+                      </div>
                     </small>
                   ) : null}
                 </h1>
@@ -82,7 +84,7 @@ class Login extends Component {
                     <input
                       type="submit"
                       value="Submit"
-                      className="btn btn-block"
+                      className={styles.button}
                     />
                   </form>
                 ) : null}

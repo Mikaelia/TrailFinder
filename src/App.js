@@ -26,11 +26,7 @@ class App extends Component {
             <Switch>
               <Route path="/test" component={UserIsAuthenticated(Test)} />
               <Route exact path="/" component={UserIsAuthenticated(Welcome)} />
-              <Route
-                exact
-                path="/login"
-                component={UserIsNotAuthenticated(Login)}
-              />
+              <Route path="/login" component={UserIsNotAuthenticated(Login)} />
               <Route
                 path="/register"
                 component={UserIsNotAuthenticated(Register)}
