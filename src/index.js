@@ -29,6 +29,7 @@ injectGlobal`
     font-family: 'Montserrat', sans-serif;
     text-transform: uppercase;
     font-weight: 300;
+    background-color: white;
   }
 `;
 

@@ -16,13 +16,13 @@ class Register extends Component {
   onSubmit = e => {
     e.preventDefault();
 
-    const { firebase, notifyUser } = this.props;
+    const { firebase, notifyUser, history } = this.props;
     const { email, password } = this.state;
 
     // Register with firebase
     firebase
       .createUser({ email, password })
-      .catch(err => notifyUser("That User Already Exists", "error"));
+      .catch(err => notifyUser(err.message, "error"));
   };
 
   onChange = e => this.setState({ [e.target.name]: e.target.value });
@@ -33,11 +33,11 @@ class Register extends Component {
       <div>
         <div className="row">
           <div className="col-md-6 mx-auto">
+            {message ? (
+              <Alert message={message} messageType={messageType} />
+            ) : null}
             <div className={styles.card}>
               <div className={styles.cardBody}>
-                {message ? (
-                  <Alert message={message} messageType={messageType} />
-                ) : null}
                 <h1 className={styles.cardHeader}>Register</h1>
                 <form onSubmit={this.onSubmit}>
                   <div>

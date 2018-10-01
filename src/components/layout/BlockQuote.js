@@ -3,7 +3,7 @@ import styles from "../../styles/text.css";
 
 export default () => {
   return (
-    <div style={{ marginTop: "5rem" }}>
+    <div style={{ margin: "5rem 1rem 0rem 0rem" }}>
       <h1 className={styles.quote}>
         <p className={styles.primary}>
           <span className={styles.iconLeft}>
@@ -11,9 +11,9 @@ export default () => {
           </span>
           Of all the paths you take in life...{" "}
         </p>
-        <p>
+        <p style={{marginBottom: '2rem'}}>
           <span className={styles.secondary}>
-            make sure a <span style={{ fontStyle: "italic" }}>few </span>
+            make sure a few
             of them are{" "}
             <span style={{ color: "rgb(23, 111, 226)" }}>
               dirt

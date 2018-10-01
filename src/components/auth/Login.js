@@ -7,6 +7,7 @@ import { notifyUser } from "../../actions/notifyActions";
 import Alert from "../layout/Alert";
 import BlockQuote from "../layout/BlockQuote";
 import styles from "../../styles/Login.css";
+import { Link } from "react-router-dom";
 
 class Login extends Component {
   state = {
@@ -36,10 +37,10 @@ class Login extends Component {
           <div className="row">
             <div className="col-md-6 mx-auto">
               <div className={styles.card}>
+                {message ? (
+                  <Alert message={message} messageType={messageType} />
+                ) : null}
                 <div className={styles.cardBody}>
-                  {message ? (
-                    <Alert message={message} messageType={messageType} />
-                  ) : null}
                   <h1
                     className={styles.cardHeader}
                     onClick={() =>
@@ -93,6 +94,13 @@ class Login extends Component {
                         value="Submit"
                         className={styles.button}
                       />
+                      <Link
+                        to="/register"
+                        className={styles.button}
+                        style={{ marginTop: "0", textDecoration: "none" }}
+                      >
+                        New? Register Here
+                      </Link>
                     </form>
                   ) : null}
                 </div>

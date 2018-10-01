@@ -2,15 +2,28 @@ import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 import { compose } from 'redux'
 import { connect } from 'react-redux'
+import { firebaseConnect } from 'react-redux-firebase'
 import { firestoreConnect } from 'react-redux-firebase'
 import PropTypes from 'prop-types'
 import Spinner from '../layout/Spinner'
 
 class Trailmarks extends Component {
+
+  // getting from redux
+
   render () {
     const { trailmarks } = this.props
+    const {auth} = this.props
+    console.log(trailmarks)
 
     if (trailmarks) {
+      const usertrails = trailmarks.filter(trailmark => {
+        console.log(trailmark['user'] == (auth.uid))
+        console.log(trailmark['user'])
+        console.log(auth.uid)
+        return trailmark['user'] == auth.uid
+      })
+  
       return (
         <div>
           <div className='row'>
@@ -31,16 +44,16 @@ class Trailmarks extends Component {
               </tr>
             </thead>
             <tbody>
-              {trailmarks.map(trail => (
-                <tr key={trail.id}>
+              {usertrails.map(elem => (
+                <tr key={elem.trail.id}>
                   <td>
-                    {trail.name}
+                    {elem.trail.name}
                   </td>
-                  <td>{trail.location}</td>
-                  <td>{trail.summary}</td>
+                  <td>{elem.trail.location}</td>
+                  <td>{elem.trail.summary}</td>
                   <td>
                     <Link
-                      to={`/trail/${trail.id}`}
+                      to={`/trail/${elem.trail.id}`}
                       className='btn btn-secondary btn-sm'
                     >
                       <i className='fas fa-arrow-circle-right'> Details</i>
@@ -64,8 +77,10 @@ Trailmarks.propTypes = {
 }
 
 export default compose(
+  firebaseConnect(),
   firestoreConnect([{ collection: 'trailmarks' }]),
   connect((state, props) => ({
-    trailmarks: state.firestore.ordered.trailmarks
+    trailmarks: state.firestore.ordered.trailmarks,
+    auth: state.firebase.auth
   }))
 )(Trailmarks)

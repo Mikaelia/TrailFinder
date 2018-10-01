@@ -1,7 +1,7 @@
 import React from 'react'
 import TrailRetriever from '../trails/TrailRetriever'
 
-class TrailFiner extends React.Component {
+class TrailFinder extends React.Component {
   constructor () {
     super()
 
@@ -40,4 +40,4 @@ class TrailFiner extends React.Component {
   }
 }
 
-export default TrailFiner
+export default TrailFinder
