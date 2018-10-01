@@ -1,36 +1,80 @@
-import React, { Component } from 'react'
+import React, { Component } from "react";
+import classnames from "classnames";
+import { connect } from "react-redux";
+import { firestoreConnect } from "react-redux-firebase";
+import { compose } from "redux";
 
 class CompletedToggle extends Component {
-  constructor (props) {
-    super(props)
+  constructor(props) {
+    super(props);
 
     this.state = {
       completed: false
-    }
+    };
 
-    this.handleClick = this.handleClick.bind(this)
+    this.handleClick = this.handleClick.bind(this);
   }
 
-  handleClick () {
-    this.setState({ completed: !this.state.completed })
+  static getDerivedStateFromProps(props, state) {
+    const { trailmark } = props;
+
+    console.log(trailmark);
+
+    // return { totalOwed: total };
   }
 
-  render () {
-    const { completed } = this.state
-    console.log({ completed })
-    return (
-      <button onClick={this.handleClick}>
-        {this.state.completed
-          ? <span className='text-success'>
-            <i className='fas fa-check' /> COMPLETED
-            </span>
-          : <span className='text-danger'>
-            <i className='fas fa-times' /> NOT COMPLETED
-            </span>}
+  handleClick() {
+    this.setState({ completed: !this.state.completed });
+  }
+  //////////////////
+  // balanceSubmit = e => {
+  //   e.preventDefault();
 
-      </button>
-    )
+  //   const { user, firestore } = this.props;
+  //   const { completed } = this.state;
+
+  //   const clientUpdate = {
+  //     balance: parseFloat(balanceUpdateAmount)
+  //   };
+
+  //   // Update in firestore
+  //   firestore.update({ collection: "users", doc: user.id }, clientUpdate);
+  // };
+  /////////////////////////
+
+  render() {
+    console.log(this.props);
+    const { completed } = this.state;
+    console.log({ completed });
+
+    const icon = (
+      <span
+        className={classnames({
+          "text-success": completed,
+          "text-danger": !completed
+        })}
+      >
+        <i
+          className={classnames({
+            "fas fa-check fa-lg": completed,
+            "fas fa-times fa-lg": !completed
+          })}
+          style={{ display: "inline" }}
+          onClick={this.handleClick}
+        />
+      </span>
+    );
+    return icon;
   }
 }
 
-export default CompletedToggle
+export default compose(
+  firestoreConnect(props => [
+    { collection: "trailmarks", storeAs: "trailmark", doc: this.props }
+  ]),
+  connect(({ firestore: { ordered } }, props) => ({
+    trailmark: ordered.trailmark && ordered.trailmark[0]
+  }))
+)(CompletedToggle);
+
+//in preceeding, need to grab user id from firebase, pass through props. MAKE THIS AN ACTION

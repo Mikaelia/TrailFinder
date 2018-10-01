@@ -45,15 +45,15 @@ class AppNavbar extends Component {
             }
           />
         </span>
-        <a href="#!" className={styles.logo}>
+        <div className={styles.logo}>
           <div className={styles.compass}>
-            <i class="far fa-compass fa-2x" />
+            <i className="far fa-compass fa-2x" />
           </div>
           <Link to="/" className={styles.branding}>
             <span style={{ fontWeight: 600 }}>TRAIL</span>
             FINDER
           </Link>
-        </a>
+        </div>
 
         {isAuthenticated ? (
           <ul

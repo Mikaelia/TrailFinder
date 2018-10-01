@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import MyFancyComponent from "./Map";
-import styles from "../../styles/map.css";
+import styles from "../../styles/mapview.css";
 
 class MapView extends Component {
   constructor(props) {
@@ -23,19 +23,15 @@ class MapView extends Component {
     this.getGeoLocation();
   }
 
-  shouldComponentUpdate(nextProps, nextState) {
-    if (this.state.isMarkerShown !== nextState.isMarkerShown) return true;
-    return false;
-  }
-
-  showMapHandler = () => {
-    this.setState({ showMap: true });
-  };
+  // shouldComponentUpdate(nextProps, nextState) {
+  //   if (this.state.isMarkerShown !== nextState.isMarkerShown) return true;
+  //   return false;
+  // }
 
   getGeoLocation = () => {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(position => {
-        // console.log(position.coords)
+        // display component if geolocation
         this.setState(prevState => ({
           isMarkerShown: true,
           currentLatLng: {
@@ -50,7 +46,25 @@ class MapView extends Component {
     }
   };
 
+  renderButtons() {
+    return (
+      <div>
+        <div className={styles.hello}>Hi, I'm a div</div>
+        <button
+          onClick={e => {
+            e.preventDefault();
+            this.setState({ showMap: true });
+            console.log(this.state);
+          }}
+        >
+          Click me
+        </button>
+      </div>
+    );
+  }
+
   render() {
+    console.log("render!!!");
     const { showMap } = this.state;
     //set map component.
     const map = this.state.isMarkerShown ? (
@@ -63,14 +77,7 @@ class MapView extends Component {
 
     return (
       <div className={styles.mapclick}>
-        {showMap ? (
-          map
-        ) : (
-          <div className={styles.mapclick}>
-            <div className="helo">Hi, I'm a div</div>
-            <button onClick={this.showMapHandler}>Click me</button>
-          </div>
-        )}
+        {showMap ? map : this.renderButtons()}
       </div>
     );
   }

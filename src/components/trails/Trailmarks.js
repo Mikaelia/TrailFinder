@@ -1,62 +1,101 @@
-import React, { Component } from 'react'
-import { Link } from 'react-router-dom'
-import { compose } from 'redux'
-import { connect } from 'react-redux'
-import { firebaseConnect } from 'react-redux-firebase'
-import { firestoreConnect } from 'react-redux-firebase'
-import PropTypes from 'prop-types'
-import Spinner from '../layout/Spinner'
+import React, { Component } from "react";
+import { Link } from "react-router-dom";
+import { compose } from "redux";
+import { connect } from "react-redux";
+import { firebaseConnect } from "react-redux-firebase";
+import { firestoreConnect } from "react-redux-firebase";
+import PropTypes from "prop-types";
+import Spinner from "../layout/Spinner";
+import CompletedToggle from "../layout/CompletedToggle";
+
+import styles from "../../styles/trailmarks.css";
 
 class Trailmarks extends Component {
-
   // getting from redux
 
-  render () {
-    const { trailmarks } = this.props
-    const {auth} = this.props
-    console.log(trailmarks)
+  render() {
+    const { trailmarks } = this.props;
+    const { auth } = this.props;
+
+    console.log(trailmarks);
 
     if (trailmarks) {
       const usertrails = trailmarks.filter(trailmark => {
-        console.log(trailmark['user'] == (auth.uid))
-        console.log(trailmark['user'])
-        console.log(auth.uid)
-        return trailmark['user'] == auth.uid
-      })
-  
+        return trailmark["uid"] === auth.uid;
+      });
+
       return (
-        <div>
-          <div className='row'>
-            <div className='col-md-6'>
-              <h2>
-                {' '}
-                <i className='far fa-compass'> Trails</i>
-              </h2>
-            </div>
-            <div className='col-md-6' />
+        <div className="container mt-4">
+          <h2
+            style={{
+              marginTop: "4rem",
+              textAlign: "center"
+            }}
+          >
+            {" "}
+            TrailMarks
+          </h2>
+          <div className="row">
+            <div className="col-md-6" />
+            <div className="col-md-6" />
           </div>
-          <table className='table table-striped'>
-            <thead className='thead-inverse'>
+          <table className={styles.table} style={{ marginTop: "4rem" }}>
+            <thead className="thead-inverse">
               <tr>
-                <th>Name</th>
-                <th>Location</th>
-                <th>Description</th>
+                <th
+                  className={styles.th}
+                  style={{
+                    borderTopLeftRadius: ".4rem",
+                    borderBottomLeftRadius: ".4rem"
+                  }}
+                />
+
+                <th className={styles.th}>Trail</th>
+                <th className={styles.th}>Location</th>
+                <th className={styles.th}>Description</th>
+
+                <th
+                  className={styles.th}
+                  style={{
+                    borderTopRightRadius: ".4rem",
+                    borderBottomRightRadius: ".4rem"
+                  }}
+                >
+                  {""}
+                </th>
               </tr>
             </thead>
             <tbody>
-              {usertrails.map(elem => (
-                <tr key={elem.trail.id}>
+              {usertrails.map(trail => (
+                <tr key={trail.name} className={styles.card}>
                   <td>
-                    {elem.trail.name}
+                    <img
+                      src={trail.imgMedium}
+                      alt="Trail Pic"
+                      className={styles.image}
+                    />
                   </td>
-                  <td>{elem.trail.location}</td>
-                  <td>{elem.trail.summary}</td>
-                  <td>
-                    <Link
-                      to={`/trail/${elem.trail.id}`}
-                      className='btn btn-secondary btn-sm'
-                    >
-                      <i className='fas fa-arrow-circle-right'> Details</i>
+                  <td className={styles.td}>{trail.name}</td>
+                  <td className={styles.td}>{trail.location}</td>
+                  <td className={styles.td}>{trail.summary}</td>
+
+                  <td className={styles.td} style={{ verticalAlign: "center" }}>
+                    <CompletedToggle
+                      trailid={trail.id}
+                      style={{
+                        paddingLeft: "3rem"
+                      }}
+                    />
+                    <Link to={`/trail/${trail.id}`}>
+                      <i
+                        className="fas fa-angle-double-right fa-lg"
+                        style={{
+                          paddingLeft: "2rem",
+                          paddingRight: "1rem",
+                          ":hover": "color: rgb(223, 35, 2)",
+                          display: "inline"
+                        }}
+                      />
                     </Link>
                   </td>
                 </tr>
@@ -64,9 +103,9 @@ class Trailmarks extends Component {
             </tbody>
           </table>
         </div>
-      )
+      );
     } else {
-      return <Spinner />
+      return <Spinner />;
     }
   }
 }
@@ -74,13 +113,13 @@ class Trailmarks extends Component {
 Trailmarks.propTypes = {
   firestore: PropTypes.object.isRequired,
   trailmarks: PropTypes.array
-}
+};
 
 export default compose(
   firebaseConnect(),
-  firestoreConnect([{ collection: 'trailmarks' }]),
+  firestoreConnect([{ collection: "trailmarks" }]),
   connect((state, props) => ({
     trailmarks: state.firestore.ordered.trailmarks,
     auth: state.firebase.auth
   }))
-)(Trailmarks)
+)(Trailmarks);

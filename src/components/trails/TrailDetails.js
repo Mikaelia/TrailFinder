@@ -1,15 +1,13 @@
-import React, { Component } from 'react'
-import { Link } from 'react-router-dom'
-import PropTypes from 'prop-types'
-import { compose } from 'redux'
-import { connect } from 'react-redux'
-import { firestoreConnect } from 'react-redux-firebase'
-import classnames from 'classnames'
+import React, { Component } from "react";
+import { Link } from "react-router-dom";
+// import PropTypes from "prop-types";
+import { compose } from "redux";
+import { connect } from "react-redux";
+import { firestoreConnect } from "react-redux-firebase";
 
-import Spinner from '../layout/Spinner'
-import CompletedToggle from '../layout/CompletedToggle'
-import TrailView from './TrailView'
-import TrailNoteForm from './TrailNoteForm'
+import Spinner from "../layout/Spinner";
+import TrailView from "./TrailView";
+import TrailNoteForm from "./TrailNoteForm";
 
 // Toggle Completed/ Not Completed
 // Show Notes
@@ -19,79 +17,77 @@ import TrailNoteForm from './TrailNoteForm'
 class TrailDetails extends Component {
   state = {
     showNotes: false
-  }
+  };
 
   onDeleteClick = () => {
-    const { trail, firestore, history } = this.props
+    const { trail, firestore, history } = this.props;
 
     firestore
-      .delete({ collection: 'trailmarks', doc: trail.id })
-      .then(history.push('/trailmarks'))
-  }
+      .delete({ collection: "trailmarks", doc: trail.id })
+      .then(history.push("/trailmarks"));
+  };
 
-  render () {
-    const { trail } = this.props
-    const { showNotes } = this.state
+  render() {
+    const { trail } = this.props;
+    const { showNotes } = this.state;
 
-    let notesForm = ''
+    let notesForm = "";
 
     // Clickable Add Notes Form
     if (showNotes) {
-      notesForm = <TrailNoteForm trail={trail} value={trail.notes} />
+      notesForm = <TrailNoteForm trail={trail} value={trail.notes} />;
     } else {
-      notesForm = null
+      notesForm = null;
     }
+
     if (trail) {
       return (
         <div>
-          <div className='row'>
-            <div className='col-md-6'>
-              <Link to='/trailmarks' className='btn btn-link'>
-                <i className='fas fa-arrow-circle-left' /> Back To Trailmarks
+          <div className="row">
+            <div className="col-md-6">
+              <Link to="/trailmarks" className="btn btn-link">
+                <i className="fas fa-arrow-circle-left" /> Back To Trailmarks
               </Link>
             </div>
           </div>
 
-          <div className='card'>
-            <div className='col-md-4 col-sm-6'>
-              <h3 className='pull-right'>
-                <CompletedToggle />
-              </h3>
+          <div className="card" />
+          <div className="col-md-6">
+            <div className="btn-group float-right">
+              <button onClick={this.onDeleteClick} className="btn btn-danger">
+                Delete
+              </button>
             </div>
-
-            <div className='col-md-6'>
-              <div className='btn-group float-right'>
-                <button onClick={this.onDeleteClick} className='btn btn-danger'>
-                  Delete
-                </button>
-              </div>
-            </div>
-            <TrailView trailDetails={trail} />
-            <a
-              href='#!'
-              onClick={() =>
-                this.setState({
-                  showNotes: !this.state.showNotes
-                })}
-            >
-              <i className='fas fa-pencil-alt' /> Trail Notes
-            </a>
-            {notesForm}
-
           </div>
+          <TrailView trailDetails={trail} />
+          <a
+            href="#!"
+            onClick={() =>
+              this.setState({
+                showNotes: !this.state.showNotes
+              })
+            }
+          >
+            <i className="fas fa-pencil-alt" /> Trail Notes
+          </a>
+          {notesForm}
         </div>
-      )
+      );
     } else {
-      return <Spinner />
+      return <Spinner />;
     }
   }
 }
 
 export default compose(
   firestoreConnect(props => [
-    { collection: 'trailmarks', storeAs: 'trail', doc: props.match.params.id }
+    {
+      collection: "trailmarks",
+      doc: props.match.params.id,
+      storeAs: "trail"
+    }
   ]),
   connect(({ firestore: { ordered } }, props) => ({
     trail: ordered.trail && ordered.trail[0]
   }))
-)(TrailDetails)
+)(TrailDetails);
