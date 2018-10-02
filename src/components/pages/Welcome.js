@@ -1,25 +1,44 @@
 import styles from "../../styles/mapview.css";
 import Mapview from "../maps/MapView";
-import React from "react";
+import classnames from "classnames";
+import React, { Component } from "react";
 
-export default () => {
-  return (
-    <div>
-      <div className={styles.collapseDiv}>
-        <h1 className={styles.header}>
-          {" "}
-          Let's Begin{" "}
-          <span className={styles.arrow1}>
-            <i class="fas fa-angle-right" />
-          </span>
-          <span className={styles.arrow2}>
-            <i class="fas fa-angle-right" />
-          </span>
-        </h1>
+export default class Welcome extends Component {
+  constructor(props) {
+    super(props);
+    this.state = { active: false };
+  }
+
+  click() {
+    this.setState({ active: true });
+  }
+
+  render() {
+    return (
+      <div>
+        <div className={styles.collapseDiv}>
+          <h1 className={styles.header}>
+            {" "}
+            Let's Begin{" "}
+            <span className={styles.arrow1}>
+              <i class="fas fa-angle-right" />
+            </span>
+            <span className={styles.arrow2}>
+              <i class="fas fa-angle-right" />
+            </span>
+          </h1>
+          <button>Click me</button>;
+        </div>
+        <div
+          onClick={this.click.bind(this)}
+          className={classnames({
+            [styles.showDiv]: this.state.active,
+            [styles.sideDiv]: !this.state.active
+          })}
+        >
+          <Mapview />
+        </div>
       </div>
-      <div className={styles.sideDiv}>
-        <Mapview />
-      </div>
-    </div>
-  );
-};
+    );
+  }
+}

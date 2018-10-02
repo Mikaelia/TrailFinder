@@ -64,7 +64,9 @@ class TrailRetriever extends Component {
     console.log(this.state);
     return (
       <div className="card">
-        <h3 className="card-header">Your Trail</h3>
+        <h3 className="card-header" style={{ textAlign: "center" }}>
+          {this.state.trail.name}
+        </h3>
         <TrailView trailDetails={this.state.trail} />
         <button onClick={this.onClick}>Save Trail</button>
       </div>

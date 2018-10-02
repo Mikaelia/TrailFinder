@@ -14,6 +14,7 @@ injectGlobal`
   html {
     box-sizing: border-box;
     height: 100%
+    background-color: rgb(70, 130, 208);
     
   }
 

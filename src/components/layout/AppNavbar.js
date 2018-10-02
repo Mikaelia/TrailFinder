@@ -64,7 +64,7 @@ class AppNavbar extends Component {
               id="jsMenu"
             >
               <li className={styles.navli}>
-                <Link to="/mapview" className={styles.navlinks}>
+                <Link to="/" className={styles.navlinks}>
                   FIND
                 </Link>
               </li>
