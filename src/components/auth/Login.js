@@ -28,6 +28,14 @@ class Login extends Component {
 
   onChange = e => this.setState({ [e.target.name]: e.target.value });
 
+  renderFlashMsg(message, messageType) {
+    return message ? (
+      <Alert message={message} messageType={messageType} />
+    ) : (
+      false
+    );
+  }
+
   render() {
     const { message, messageType } = this.props.notify;
     return (
@@ -36,10 +44,8 @@ class Login extends Component {
         <div className={styles.login}>
           <div className="row">
             <div className="col-md-6 mx-auto">
+              {this.renderFlashMsg(message, messageType)}
               <div className={styles.card}>
-                {message ? (
-                  <Alert message={message} messageType={messageType} />
-                ) : null}
                 <div className={styles.cardBody}>
                   <h1
                     className={styles.cardHeader}

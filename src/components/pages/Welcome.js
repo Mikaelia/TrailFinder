@@ -1,47 +1,25 @@
-import React, { Component } from "react";
-import { Link } from "react-router-dom";
-import { firebaseConnect } from "react-redux-firebase";
-import { firestoreConnect } from "react-redux-firebase";
-import { compose } from "redux";
-import { connect } from "react-redux";
-import styles from "../../styles/page.css";
+import styles from "../../styles/mapview.css";
+import Mapview from "../maps/MapView";
+import React from "react";
 
-class Welcome extends Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      uid: ""
-    };
-  }
-
-  static getDerivedStateFromProps(props, state) {
-    const { auth } = props;
-
-    console.log(auth.uid);
-  }
-
-  render() {
-    return (
-      <div classname="container">
-        <div className={styles.light}>
-          <h1>Welcome</h1>
-        </div>
-        <div className={styles.dark}>
-          <Link to="/mapview" className={styles.button}>
-            {" "}
-            Let's Get Started
-          </Link>
-        </div>
+export default () => {
+  return (
+    <div>
+      <div className={styles.collapseDiv}>
+        <h1 className={styles.header}>
+          {" "}
+          Let's Begin{" "}
+          <span className={styles.arrow1}>
+            <i class="fas fa-angle-right" />
+          </span>
+          <span className={styles.arrow2}>
+            <i class="fas fa-angle-right" />
+          </span>
+        </h1>
       </div>
-    );
-  }
-}
-
-export default compose(
-  firebaseConnect(),
-  firestoreConnect(),
-  connect((state, props) => ({
-    auth: state.firebase.auth
-  }))
-)(Welcome);
+      <div className={styles.sideDiv}>
+        <Mapview />
+      </div>
+    </div>
+  );
+};

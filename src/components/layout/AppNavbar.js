@@ -36,81 +36,83 @@ class AppNavbar extends Component {
     const { auth } = this.props;
 
     return (
-      <nav className={styles.navbar}>
-        <span className={styles.toggle} id="js-navbar-toggle">
-          <i
-            className="fas fa-bars"
-            onClick={() =>
-              this.setState({ toggleShow: !this.state.toggleShow })
-            }
-          />
-        </span>
-        <div className={styles.logo}>
-          <div className={styles.compass}>
-            <i className="far fa-compass fa-2x" />
+      <div className={styles.parent}>
+        <nav className={styles.navbar}>
+          <span className={styles.toggle} id="js-navbar-toggle">
+            <i
+              className="fas fa-bars"
+              onClick={() =>
+                this.setState({ toggleShow: !this.state.toggleShow })
+              }
+            />
+          </span>
+          <div className={styles.logo}>
+            <div className={styles.compass}>
+              <i className="far fa-compass fa-2x" />
+            </div>
+            <Link to="/" className={styles.branding}>
+              <span style={{ fontWeight: 600 }}>TRAIL</span>
+              FINDER
+            </Link>
           </div>
-          <Link to="/" className={styles.branding}>
-            <span style={{ fontWeight: 600 }}>TRAIL</span>
-            FINDER
-          </Link>
-        </div>
 
-        {isAuthenticated ? (
-          <ul
-            className={
-              this.state.toggleShow ? `${styles.active}` : `${styles.mainNav}`
-            }
-            id="jsMenu"
-          >
-            <li className={styles.navli}>
-              <Link to="/mapview" className={styles.navlinks}>
-                FIND
-              </Link>
-            </li>
+          {isAuthenticated ? (
+            <ul
+              className={
+                this.state.toggleShow ? `${styles.active}` : `${styles.mainNav}`
+              }
+              id="jsMenu"
+            >
+              <li className={styles.navli}>
+                <Link to="/mapview" className={styles.navlinks}>
+                  FIND
+                </Link>
+              </li>
 
-            <li className={styles.navli}>
-              <Link to="/trailmarks" className={styles.navlinks}>
-                TRAILMARKS
-              </Link>
-            </li>
+              <li className={styles.navli}>
+                <Link to="/trailmarks" className={styles.navlinks}>
+                  TRAILMARKS
+                </Link>
+              </li>
 
-            <li className={styles.navli}>
-              <a href="#!" className={styles.navlinks}>
-                {auth.email}
-              </a>
-            </li>
+              <li className={styles.navli}>
+                <a href="#!" className={styles.navlinks}>
+                  {auth.email}
+                </a>
+              </li>
 
-            <li className={styles.navli}>
-              <a
-                href="#!"
-                className={styles.navlinks}
-                onClick={this.onLogoutClick}
-              >
-                LOGOUT
-              </a>
-            </li>
-          </ul>
-        ) : (
-          <ul
-            className={
-              this.state.toggleShow ? `${styles.active}` : `${styles.mainNav}`
-            }
-            id="jsMenu"
-          >
-            <li className={styles.navli}>
-              <Link to="/login" className={styles.toplink}>
-                LOGIN
-              </Link>
-            </li>
+              <li className={styles.navli}>
+                <a
+                  href="#!"
+                  className={styles.navlinks}
+                  onClick={this.onLogoutClick}
+                >
+                  LOGOUT
+                </a>
+              </li>
+            </ul>
+          ) : (
+            <ul
+              className={
+                this.state.toggleShow ? `${styles.active}` : `${styles.mainNav}`
+              }
+              id="jsMenu"
+            >
+              <li className={styles.navli}>
+                <Link to="/login" className={styles.toplink}>
+                  LOGIN
+                </Link>
+              </li>
 
-            <li className={styles.navli}>
-              <Link to="/register" className={styles.navlinks}>
-                REGISTER
-              </Link>
-            </li>
-          </ul>
-        )}
-      </nav>
+              <li className={styles.navli}>
+                <Link to="/register" className={styles.navlinks}>
+                  REGISTER
+                </Link>
+              </li>
+            </ul>
+          )}
+        </nav>
+      </div>
     );
   }
 }

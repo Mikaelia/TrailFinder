@@ -23,87 +23,108 @@ class Trailmarks extends Component {
       const usertrails = trailmarks.filter(trailmark => {
         return trailmark["uid"] === auth.uid;
       });
+      console.log(usertrails);
+      if (usertrails.length) {
+        return (
+          <div className="container mt-4">
+            <h2
+              style={{
+                marginTop: "10rem",
+                marginBottom: "1rem",
+                textAlign: "center",
+                color: "#405185"
+              }}
+            >
+              {" "}
+              TrailMarks
+            </h2>
+            <table className={styles.table} style={{ marginTop: "4rem" }}>
+              <thead className="thead-inverse">
+                <tr>
+                  <th
+                    className={styles.th}
+                    style={{
+                      borderTopLeftRadius: ".4rem",
+                      borderBottomLeftRadius: ".4rem"
+                    }}
+                  />
 
-      return (
-        <div className="container mt-4">
-          <h2
-            style={{
-              marginTop: "4rem",
-              textAlign: "center"
-            }}
-          >
-            {" "}
-            TrailMarks
-          </h2>
-          <div className="row">
-            <div className="col-md-6" />
-            <div className="col-md-6" />
-          </div>
-          <table className={styles.table} style={{ marginTop: "4rem" }}>
-            <thead className="thead-inverse">
-              <tr>
-                <th
-                  className={styles.th}
-                  style={{
-                    borderTopLeftRadius: ".4rem",
-                    borderBottomLeftRadius: ".4rem"
-                  }}
-                />
+                  <th className={styles.th}>Trail</th>
+                  <th className={styles.th}>Location</th>
+                  <th className={styles.th}>Description</th>
 
-                <th className={styles.th}>Trail</th>
-                <th className={styles.th}>Location</th>
-                <th className={styles.th}>Description</th>
+                  <th
+                    className={styles.th}
+                    style={{
+                      borderTopRightRadius: ".4rem",
+                      borderBottomRightRadius: ".4rem"
+                    }}
+                  >
+                    {""}
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                {usertrails.map(trail => (
+                  <tr key={trail.name} className={styles.card}>
+                    <td>
+                      <img
+                        src={trail.imgMedium}
+                        alt="Trail Pic"
+                        className={styles.image}
+                      />
+                    </td>
+                    <td className={styles.td}>{trail.name}</td>
+                    <td className={styles.td}>{trail.location}</td>
+                    <td className={styles.td}>{trail.summary}</td>
 
-                <th
-                  className={styles.th}
-                  style={{
-                    borderTopRightRadius: ".4rem",
-                    borderBottomRightRadius: ".4rem"
-                  }}
-                >
-                  {""}
-                </th>
-              </tr>
-            </thead>
-            <tbody>
-              {usertrails.map(trail => (
-                <tr key={trail.name} className={styles.card}>
-                  <td>
-                    <img
-                      src={trail.imgMedium}
-                      alt="Trail Pic"
-                      className={styles.image}
-                    />
-                  </td>
-                  <td className={styles.td}>{trail.name}</td>
-                  <td className={styles.td}>{trail.location}</td>
-                  <td className={styles.td}>{trail.summary}</td>
-
-                  <td className={styles.td} style={{ verticalAlign: "center" }}>
-                    <CompletedToggle
-                      trailid={trail.id}
-                      style={{
-                        paddingLeft: "3rem"
-                      }}
-                    />
-                    <Link to={`/trail/${trail.id}`}>
-                      <i
-                        className="fas fa-angle-double-right fa-lg"
+                    <td
+                      className={styles.td}
+                      style={{ verticalAlign: "center" }}
+                    >
+                      <CompletedToggle
+                        trailid={trail.id}
                         style={{
-                          paddingLeft: "2rem",
-                          paddingRight: "1rem",
-                          ":hover": "color: rgb(223, 35, 2)",
-                          display: "inline"
+                          paddingLeft: "3rem"
                         }}
                       />
-                    </Link>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-      );
+                      <Link to={`/trail/${trail.id}`}>
+                        <i
+                          className="fas fa-angle-double-right fa-lg"
+                          style={{
+                            paddingLeft: "2rem",
+                            paddingRight: "1rem",
+                            ":hover": "color: rgb(223, 35, 2)",
+                            display: "inline"
+                          }}
+                        />
+                      </Link>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        );
+      } else {
+        return (
+          <div className="container mt-4">
+            <h2
+              style={{
+                marginTop: "10rem",
+                marginBottom: "1rem",
+                textAlign: "center",
+                color: "#405185"
+              }}
+            >
+              {" "}
+              TrailMarks
+            </h2>
+            <h3 style={{ textAlign: "center" }}>No Saved Trails</h3>
+            <h3 style={{ textAlign: "center" }}>:(</h3>;
+          </div>
+        );
+      }
     } else {
       return <Spinner />;
     }

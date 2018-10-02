@@ -12,7 +12,7 @@ class MapView extends Component {
         lng: 0
       },
       isMarkerShown: false,
-      showMap: false
+      showMap: true
     };
   }
 
@@ -46,23 +46,6 @@ class MapView extends Component {
     }
   };
 
-  renderButtons() {
-    return (
-      <div>
-        <div className={styles.hello}>Hi, I'm a div</div>
-        <button
-          onClick={e => {
-            e.preventDefault();
-            this.setState({ showMap: true });
-            console.log(this.state);
-          }}
-        >
-          Click me
-        </button>
-      </div>
-    );
-  }
-
   render() {
     console.log("render!!!");
     const { showMap } = this.state;
@@ -77,7 +60,7 @@ class MapView extends Component {
 
     return (
       <div className={styles.mapclick}>
-        {showMap ? map : this.renderButtons()}
+        {showMap ? map : <h1>Please Enable Location Services...</h1>}
       </div>
     );
   }
