@@ -26,16 +26,17 @@ class TrailNoteForm extends Component {
     const updTrail = {
       notes: this.state.notes
     };
-
+    e.target.value = "";
     firestore.update({ collection: "trailmarks", doc: trail.id }, updTrail);
   }
 
   render() {
     return (
-      <div>
+      <div style={{ height: "100vh" }}>
         <form onSubmit={this.noteSubmit}>
           <div className="input-group">
             <input
+              style={{ overflow: "wrap", width: "50px" }}
               type="text"
               className="form-control"
               name="notes"
@@ -44,14 +45,11 @@ class TrailNoteForm extends Component {
               onChange={this.handleOnChange}
             />
             <div className="input-group-append">
-              <input
-                type="submit"
-                value="Save"
-                className="btn btn-outline-dark"
-              />
+              <input type="submit" value="Save" className="btn btn-dark" />
             </div>
           </div>
         </form>
+        <div style={{ padding: "1rem" }}>{this.state.notes}</div>
       </div>
     );
   }

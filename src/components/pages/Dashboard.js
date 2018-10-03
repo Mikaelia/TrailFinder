@@ -17,6 +17,8 @@ class Dashboard extends Component {
     showNotes: false
   };
 
+  componentDidMount() {}
+
   onDeleteClick = () => {
     const { trail, firestore, history } = this.props;
 
@@ -27,25 +29,39 @@ class Dashboard extends Component {
 
   render() {
     const { trail } = this.props;
+    console.log(this.props);
+    console.log(this.props.match.id);
     const { showNotes } = this.state;
 
     let notesForm = "";
 
     // Clickable Add Notes Form
     if (showNotes) {
-      notesForm = <TrailNoteForm trail={trail} value={trail.notes} />;
+      notesForm = (
+        <TrailNoteForm
+          trail={trail}
+          value={trail.notes}
+          style={{ textOverflow: "wrap" }}
+        />
+      );
     } else {
       notesForm = null;
     }
 
     if (trail) {
+      console.log(trail.id);
       return (
         // Grid Container
         <div className={styles.gcontainer}>
           {/* Left Div */}
 
           <div className={styles.leftcontainer}>
-            <div>
+            <div
+              style={{
+                textDecoration: "none!",
+                backgroundColor: "rgba(6, 106, 255, 0.104)"
+              }}
+            >
               <Link to="/trailmarks" className="btn btn-link">
                 <i className="fas fa-arrow-circle-left" /> Back To Trailmarks
               </Link>
@@ -83,11 +99,11 @@ class Dashboard extends Component {
           <div className={styles.rightcontainer}>
             {/* MAP DIV */}
             <div className={styles.splitcontainer}>
-              <h1>MAP GOES HERE</h1>
+              <h1 className={styles.locationHeader}>Directions</h1>
               <DashMapView lat={trail.lat} lng={trail.lng} />
             </div>
-
             <div className={styles.splitcontainer} />
+            Empty Container
           </div>
 
           {/* NOTES DIV */}

@@ -36,7 +36,13 @@ class TrailDetails extends Component {
 
     // Clickable Add Notes Form
     if (showNotes) {
-      notesForm = <TrailNoteForm trail={trail} value={trail.notes} />;
+      notesForm = (
+        <TrailNoteForm
+          trail={trail}
+          value={trail.notes}
+          style={{ textOverflow: "wrap", display: "block " }}
+        />
+      );
     } else {
       notesForm = null;
     }
@@ -50,27 +56,29 @@ class TrailDetails extends Component {
             </Link>
           </div>
 
-          <div style={{ padding: "3rem 10rem" }}>
+          <div style={{ padding: "3rem 2rem" }}>
             <TrailView trailDetails={trail}>
               <Button
                 message="Delete Trail"
                 onClick={this.onDeleteClick}
                 style={{ backgroundColor: "rgb(242, 64, 82)" }}
               />
+              <Button
+                message="ADD A NOTE! "
+                onClick={() =>
+                  this.setState({
+                    showNotes: !this.state.showNotes
+                  })
+                }
+                style={{
+                  marginBottom: "0"
+                }}
+              >
+                <i className="fas fa-pencil-alt" />
+              </Button>
               {notesForm}
             </TrailView>
           </div>
-          <a
-            href="#!"
-            onClick={() =>
-              this.setState({
-                showNotes: !this.state.showNotes
-              })
-            }
-          >
-            <i className="fas fa-pencil-alt" /> Trail Notes
-          </a>
-          {notesForm}
         </div>
       );
     } else {
