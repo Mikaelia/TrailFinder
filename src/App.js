@@ -14,7 +14,7 @@ import Welcome from "./components/pages/Welcome";
 import Login from "./components/auth/Login";
 import Register from "./components/auth/Register";
 import MapView from "./components/maps/MapView";
-import Test from "./components/maps/Test";
+// import Test from "./components/maps/Test";
 
 class App extends Component {
   render() {
@@ -24,7 +24,7 @@ class App extends Component {
           <div className="App">
             <AppNavbar />
             <Switch>
-              <Route path="/test" component={UserIsAuthenticated(Test)} />
+              {/* <Route path="/test" component={UserIsAuthenticated(Test)} /> */}
               <Route exact path="/" component={UserIsAuthenticated(Welcome)} />
               <Route path="/login" component={UserIsNotAuthenticated(Login)} />
               <Route
