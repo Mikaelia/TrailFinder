@@ -40,11 +40,11 @@ class Login extends Component {
     const { message, messageType } = this.props.notify;
     return (
       <div>
+        {this.renderFlashMsg(message, messageType)}
         <BlockQuote />
         <div className={styles.login}>
           <div className="row">
             <div className="col-md-6 mx-auto">
-              {this.renderFlashMsg(message, messageType)}
               <div className={styles.card}>
                 <div className={styles.cardBody}>
                   <h1

@@ -20,7 +20,7 @@ class App extends Component {
     return (
       <Provider store={store}>
         <Router>
-          <div className="App">
+          <div className="App" styles={{ height: "100vh" }}>
             <AppNavbar />
             <Switch>
               {/* <Route path="/test" component={UserIsAuthenticated(Test)} /> */}

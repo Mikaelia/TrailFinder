@@ -34,14 +34,14 @@ class Register extends Component {
   render() {
     const { message, messageType } = this.props.notify;
     return (
-      <div>
+      <div classname="container">
         <div className="row">
           <div className="col-md-6 mx-auto">
             {message ? (
               <Alert message={message} messageType={messageType} />
             ) : null}
             <div className={styles.card}>
-              <div className={styles.cardBody}>
+              <div className={styles.cardBody} style={{ marginTop: "25vh" }}>
                 <h1 className={styles.cardHeader}>Register</h1>
                 <form onSubmit={this.onSubmit}>
                   <div>

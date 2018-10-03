@@ -51,7 +51,7 @@ class MapView extends Component {
     const { showMap } = this.state;
     //set map component.
     const map = this.state.isMarkerShown ? (
-      <div className="container">
+      <div className="container" style={{ marginTop: "20vh" }}>
         <MyFancyComponent currentLocation={this.state.currentLatLng} />
       </div>
     ) : (
@@ -59,7 +59,7 @@ class MapView extends Component {
     );
 
     return (
-      <div className={styles.mapclick}>
+      <div style={{ height: "100vh", transition: "none" }}>
         {showMap ? map : <h1>Please Enable Location Services...</h1>}
       </div>
     );

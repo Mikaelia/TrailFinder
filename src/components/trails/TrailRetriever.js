@@ -55,19 +55,28 @@ class TrailRetriever extends Component {
 
   onClick = e => {
     const newTrail = this.state.trail;
-    const { firestore } = this.props;
+    const { firestore, history } = this.props;
 
     firestore
       .add({ collection: "trailmarks" }, newTrail)
-      .then(console.log("successs!"));
+      .then(console.log("Saved!"));
   };
 
   render() {
-    console.log(this.state);
+    console.log(this.props);
+    const { lat, lng } = this.props;
     return (
       <div>
         <TrailView trailDetails={this.state.trail}>
           <Button message="Save Trail" onClick={this.onClick} />
+          <Button
+            style={{
+              color: "rgb(70, 130, 208)",
+              backgroundColor: "rgba(161, 238, 252, 0.823)"
+            }}
+          >
+            <a href="/mapview">Try Again</a>
+          </Button>
         </TrailView>
       </div>
     );

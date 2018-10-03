@@ -24,15 +24,15 @@ export default props => {
       <h1 className={styles.header}>{name}</h1>
       <ul className="list-group">
         <li className={styles.li} style={{ textAlign: "center" }}>
-          <img
-            src={imgMedium}
-            style={{
-              boxShadow:
-                "0 5px 10px rgba(118, 88, 198, 0.15), 0 3px 5px rgba(118, 88, 198, 0.15)"
-            }}
-            alt="your next neat trail"
-          />
+          <div>
+            <img
+              className={styles.img}
+              src={imgMedium}
+              alt="your next neat trail"
+            />
+          </div>
         </li>
+
         <li className={styles.li}>
           <span className={styles.strongblue}>Link:</span> {url}
         </li>

@@ -8,6 +8,8 @@ export default props => {
       style={props.style ? props.style : null}
     >
       {props.message}
+
+      {props.children}
     </button>
   );
 };
