@@ -15,17 +15,19 @@ class CompletedToggle extends Component {
     this.handleClick = this.handleClick.bind(this);
   }
 
-  static getDerivedStateFromProps(props, state) {
-    const { trailmark } = props;
-
-    console.log(trailmark);
-
-    // return { totalOwed: total };
-  }
-
   handleClick() {
+    const { trailid, firestore } = this.props;
+
     this.setState({ completed: !this.state.completed });
+    const updTrail = {
+      status: this.state.completed
+    };
+
+    firestore.update({ collection: "trailmarks", doc: trailid }, updTrail);
+    console.log("handled");
+    console.log(this.state);
   }
+
   //////////////////
   // balanceSubmit = e => {
   //   e.preventDefault();
@@ -70,7 +72,7 @@ class CompletedToggle extends Component {
 
 export default compose(
   firestoreConnect(props => [
-    { collection: "trailmarks", storeAs: "trailmark", doc: this.props }
+    { collection: "trailmarks", storeAs: "trail", doc: props.trailid }
   ]),
   connect(({ firestore: { ordered } }, props) => ({
     trailmark: ordered.trailmark && ordered.trailmark[0]

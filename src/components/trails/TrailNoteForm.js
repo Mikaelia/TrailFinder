@@ -9,8 +9,7 @@ class TrailNoteForm extends Component {
     super(props);
 
     this.state = {
-      notes: this.props.trail.notes,
-      trailCompleted: false
+      notes: this.props.trail.notes
     };
 
     this.handleOnChange = this.handleOnChange.bind(this);
@@ -25,8 +24,7 @@ class TrailNoteForm extends Component {
     e.preventDefault();
     const { trail, firestore } = this.props;
     const updTrail = {
-      notes: this.state.notes,
-      trailCompleted: this.state.trailCompleted
+      notes: this.state.notes
     };
 
     firestore.update({ collection: "trailmarks", doc: trail.id }, updTrail);

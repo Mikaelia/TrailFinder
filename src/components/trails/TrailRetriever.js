@@ -6,7 +6,9 @@ import { firestoreConnect } from "react-redux-firebase";
 import { compose } from "redux";
 import { connect } from "react-redux";
 import TrailView from "./TrailView";
+import Button from "../layout/Button";
 
+import styles from "../../styles/text.css";
 // Executes call to TrailAPI and renders Trailview
 
 class TrailRetriever extends Component {
@@ -63,12 +65,10 @@ class TrailRetriever extends Component {
   render() {
     console.log(this.state);
     return (
-      <div className="card">
-        <h3 className="card-header" style={{ textAlign: "center" }}>
-          {this.state.trail.name}
-        </h3>
-        <TrailView trailDetails={this.state.trail} />
-        <button onClick={this.onClick}>Save Trail</button>
+      <div>
+        <TrailView trailDetails={this.state.trail}>
+          <Button message="Save Trail" onClick={this.onClick} />
+        </TrailView>
       </div>
     );
   }

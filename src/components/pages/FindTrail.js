@@ -3,7 +3,7 @@ import TrailRetriever from "../trails/TrailRetriever";
 
 import styles from "../../styles/text.css";
 
-// Renders TrailRetriever which displays TrailView
+// Renders TrailRetriever which will display TrailView
 
 class TrailFinder extends React.Component {
   constructor() {
@@ -33,21 +33,14 @@ class TrailFinder extends React.Component {
       return (
         <div>
           <div className={styles.titles}>
-            <h1 className="display-4">Found One! </h1>
+            <h1>Found One! </h1>
             <p className="lead">Near this location: </p>
             <p className="text-secondary">
-              <span style={{ color: "rgb(23, 111, 226)", fontWeight: "600" }}>
-                Lat:
-              </span>{" "}
-              {lat}{" "}
-              <span style={{ color: "rgb(23, 111, 226)", fontWeight: "600" }}>
-                {" "}
-                Lon:
-              </span>{" "}
-              {lng}
+              <span className={styles.heavyblue}>Lat:</span> {lat}{" "}
+              <span className={styles.heavyblue}> Lon:</span> {lng}
             </p>
           </div>
-          <div className="container">
+          <div className="container" styles={{ backgroundColor: "white" }}>
             <TrailRetriever lat={lat} lng={lng} handler={this.noRouteHandler} />
           </div>
         </div>

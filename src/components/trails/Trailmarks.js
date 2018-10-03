@@ -13,6 +13,10 @@ import styles from "../../styles/trailmarks.css";
 class Trailmarks extends Component {
   // getting from redux
 
+  toggleComplete = () => {
+    this.this.setState();
+  };
+
   render() {
     const { trailmarks } = this.props;
     const { auth } = this.props;
@@ -44,8 +48,7 @@ class Trailmarks extends Component {
                   <th
                     className={styles.th}
                     style={{
-                      borderTopLeftRadius: ".4rem",
-                      borderBottomLeftRadius: ".4rem"
+                      borderTopLeftRadius: ".4rem"
                     }}
                   />
 
@@ -56,8 +59,7 @@ class Trailmarks extends Component {
                   <th
                     className={styles.th}
                     style={{
-                      borderTopRightRadius: ".4rem",
-                      borderBottomRightRadius: ".4rem"
+                      borderTopRightRadius: ".4rem"
                     }}
                   >
                     {""}
@@ -67,7 +69,11 @@ class Trailmarks extends Component {
               <tbody>
                 {usertrails.map(trail => (
                   <tr key={trail.name} className={styles.card}>
-                    <td>
+                    <td
+                      style={{
+                        borderTopLeftRadius: "0rem"
+                      }}
+                    >
                       <img
                         src={trail.imgMedium}
                         alt="Trail Pic"
@@ -80,7 +86,11 @@ class Trailmarks extends Component {
 
                     <td
                       className={styles.td}
-                      style={{ verticalAlign: "center" }}
+                      style={{
+                        verticalAlign: "center",
+
+                        borderTopRightRadius: ".4rem"
+                      }}
                     >
                       <CompletedToggle
                         trailid={trail.id}
@@ -88,16 +98,17 @@ class Trailmarks extends Component {
                           paddingLeft: "3rem"
                         }}
                       />
-                      <Link to={`/trail/${trail.id}`}>
-                        <i
-                          className="fas fa-angle-double-right fa-lg"
-                          style={{
-                            paddingLeft: "2rem",
-                            paddingRight: "1rem",
-                            ":hover": "color: rgb(223, 35, 2)",
-                            display: "inline"
-                          }}
-                        />
+                      <Link to={`/test/${trail.id}`}>
+                        <span className={styles.icon}>
+                          <i
+                            className="fas fa-angle-double-right fa-lg"
+                            style={{
+                              paddingLeft: "2rem",
+                              paddingRight: "1rem",
+                              display: "inline"
+                            }}
+                          />
+                        </span>
                       </Link>
                     </td>
                   </tr>

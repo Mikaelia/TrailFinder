@@ -21,13 +21,12 @@ export default class Welcome extends Component {
             {" "}
             Let's Begin{" "}
             <span className={styles.arrow1}>
-              <i class="fas fa-angle-right" />
+              <i className="fas fa-angle-right" />
             </span>
             <span className={styles.arrow2}>
-              <i class="fas fa-angle-right" />
+              <i className="fas fa-angle-right" />
             </span>
           </h1>
-          <button>Click me</button>;
         </div>
         <div
           onClick={this.click.bind(this)}

@@ -8,6 +8,7 @@ import { firestoreConnect } from "react-redux-firebase";
 import Spinner from "../layout/Spinner";
 import TrailView from "./TrailView";
 import TrailNoteForm from "./TrailNoteForm";
+import Button from "../layout/Button";
 
 // Toggle Completed/ Not Completed
 // Show Notes
@@ -43,23 +44,22 @@ class TrailDetails extends Component {
     if (trail) {
       return (
         <div>
-          <div className="row">
-            <div className="col-md-6">
-              <Link to="/trailmarks" className="btn btn-link">
-                <i className="fas fa-arrow-circle-left" /> Back To Trailmarks
-              </Link>
-            </div>
+          <div>
+            <Link to="/trailmarks" className="btn btn-link">
+              <i className="fas fa-arrow-circle-left" /> Back To Trailmarks
+            </Link>
           </div>
 
-          <div className="card" />
-          <div className="col-md-6">
-            <div className="btn-group float-right">
-              <button onClick={this.onDeleteClick} className="btn btn-danger">
-                Delete
-              </button>
-            </div>
+          <div style={{ padding: "3rem 10rem" }}>
+            <TrailView trailDetails={trail}>
+              <Button
+                message="Delete Trail"
+                onClick={this.onDeleteClick}
+                style={{ backgroundColor: "rgb(242, 64, 82)" }}
+              />
+              {notesForm}
+            </TrailView>
           </div>
-          <TrailView trailDetails={trail} />
           <a
             href="#!"
             onClick={() =>

@@ -8,8 +8,16 @@ import styles from "../../styles/mapview.css";
 const MyMapComponent = compose(
   withProps({
     loadingElement: <div style={{ height: `100%` }} />,
-    containerElement: <div style={{ height: `400px` }} />,
-    mapElement: <div style={{ height: `100%` }} />
+    containerElement: (
+      <div
+        style={{
+          height: `50vh`,
+          padding: "0 1rem 1rem 1rem",
+          borderRadius: ".2rem"
+        }}
+      />
+    ),
+    mapElement: <div style={{ height: `100%`, borderRadius: ".2rem" }} />
   }),
   withGoogleMap
 )(props => (
@@ -84,7 +92,9 @@ class MyFancyComponent extends React.PureComponent {
               className={styles.locationHeader}
               style={{ fontSize: "1rem", marginBottom: "2 rem " }}
             >
-              {updLat}, {updLng}
+              <span styles={{ color: "rgb(70, 130, 208)" }}>
+                {updLat}, {updLng}
+              </span>
             </h3>
           ) : (
             <h3
@@ -95,7 +105,9 @@ class MyFancyComponent extends React.PureComponent {
                 fontWeight: "600"
               }}
             >
-              {lat}, {lng}
+              <span styles={{ color: "rgb(70, 130, 208)" }}>
+                {lat}, {lng}
+              </span>
             </h3>
           )}
         </div>
@@ -124,17 +136,18 @@ class MyFancyComponent extends React.PureComponent {
         <div>
           <h4 className={styles.notice}>Drag Marker</h4>
         </div>
-
-        <MyMapComponent
-          isMarkerShown={isMarkerShown}
-          onDragEnd={onDragEnd}
-          onMarkerMounted={onMarkerMounted}
-          defaultCenter={
-            updLat && updLng
-              ? { lat: updLat, lng: updLng }
-              : { lat: lat, lng: lng }
-          }
-        />
+        <div className={styles.map} sytle={{ width: "900px" }}>
+          <MyMapComponent
+            isMarkerShown={isMarkerShown}
+            onDragEnd={onDragEnd}
+            onMarkerMounted={onMarkerMounted}
+            defaultCenter={
+              updLat && updLng
+                ? { lat: updLat, lng: updLng }
+                : { lat: lat, lng: lng }
+            }
+          />
+        </div>
       </div>
     );
   }

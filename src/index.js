@@ -15,6 +15,7 @@ injectGlobal`
     box-sizing: border-box;
     height: 100%
     background-color: rgb(70, 130, 208);
+    background-color: aliceblue;
     
   }
 
@@ -31,8 +32,13 @@ injectGlobal`
     font-family: 'Montserrat', sans-serif;
     text-transform: uppercase;
     font-weight: 300;
-    background-color: white;
+    background-color: aliceblue;
   }
+
+  App {
+    background-color: aliceblue;
+  }
+
 `;
 
 if (module.hot) {
