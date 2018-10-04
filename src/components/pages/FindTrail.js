@@ -33,8 +33,8 @@ class TrailFinder extends React.Component {
       return (
         <div>
           <div className={styles.titles}>
-            <h1>Found One! </h1>
-            <p className="lead">Near this location: </p>
+            <h1>Found! </h1>
+            <p className="lead">Near that location... </p>
             <p className="text-secondary">
               <span className={styles.heavyblue}>Lat:</span> {lat}{" "}
               <span className={styles.heavyblue}> Lon:</span> {lng}

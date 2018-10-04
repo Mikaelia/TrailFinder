@@ -55,14 +55,16 @@ class Trailmarks extends Component {
                   <th className={styles.th}>Trail</th>
                   <th className={styles.th}>Location</th>
                   <th className={styles.th}>Description</th>
-
+                  <th className={styles.th}>Hiked? </th>
                   <th
                     className={styles.th}
                     style={{
+                      paddingLeft: "1rem",
+                      paddingRight: "1rem",
                       borderTopRightRadius: ".4rem"
                     }}
                   >
-                    {""}
+                    Details{" "}
                   </th>
                 </tr>
               </thead>
@@ -88,23 +90,20 @@ class Trailmarks extends Component {
                       className={styles.td}
                       style={{
                         verticalAlign: "center",
-
+                        marginLeft: "1rem",
+                        textAlign: "center",
                         borderTopRightRadius: ".4rem"
                       }}
                     >
-                      <CompletedToggle
-                        trailid={trail.id}
-                        style={{
-                          paddingLeft: "3rem"
-                        }}
-                      />
-                      <Link to={`/test/${trail.id}`}>
+                      <CompletedToggle trailid={trail.id} />
+                    </td>
+
+                    <td style={{ textAlign: "center" }}>
+                      <Link to={`/trail/${trail.id}`}>
                         <span className={styles.icon}>
                           <i
                             className="fas fa-angle-double-right fa-lg"
                             style={{
-                              paddingLeft: "2rem",
-                              paddingRight: "1rem",
                               display: "inline"
                             }}
                           />

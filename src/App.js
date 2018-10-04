@@ -13,7 +13,7 @@ import Welcome from "./components/pages/Welcome";
 import Login from "./components/auth/Login";
 import Register from "./components/auth/Register";
 import MapView from "./components/maps/MapView";
-import Dashboard from "./components/pages/Dashboard";
+import TrailView from "./components/trails/TrailView";
 
 class App extends Component {
   render() {
@@ -26,8 +26,8 @@ class App extends Component {
               {/* <Route path="/test" component={UserIsAuthenticated(Test)} /> */}
 
               <Route
-                path="/test/:id"
-                component={UserIsAuthenticated(Dashboard)}
+                path="/trail/:id"
+                component={UserIsAuthenticated(TrailDetails)}
               />
 
               <Route exact path="/" component={UserIsAuthenticated(Welcome)} />

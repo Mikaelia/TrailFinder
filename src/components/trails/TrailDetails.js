@@ -49,17 +49,16 @@ class TrailDetails extends Component {
 
     if (trail) {
       return (
-        <div>
+        <div style={{ marginTop: "10vh" }}>
           <div>
             <Link to="/trailmarks" className="btn btn-link">
               <i className="fas fa-arrow-circle-left" /> Back To Trailmarks
             </Link>
           </div>
-
           <div style={{ padding: "3rem 2rem" }}>
             <TrailView trailDetails={trail}>
               <Button
-                message="Delete Trail"
+                message="DELETE TRAIL"
                 onClick={this.onDeleteClick}
                 style={{ backgroundColor: "rgb(242, 64, 82)" }}
               />

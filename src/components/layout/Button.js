@@ -3,7 +3,7 @@ import styles from "../../styles/trailview.css";
 export default props => {
   return (
     <button
-      className={styles.savebutton}
+      className={styles.formbuttons}
       onClick={props.onClick}
       style={props.style ? props.style : null}
     >

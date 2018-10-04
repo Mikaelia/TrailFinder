@@ -23,10 +23,10 @@ class MapView extends Component {
     this.getGeoLocation();
   }
 
-  // shouldComponentUpdate(nextProps, nextState) {
-  //   if (this.state.isMarkerShown !== nextState.isMarkerShown) return true;
-  //   return false;
-  // }
+  shouldComponentUpdate(nextProps, nextState) {
+    if (this.state.isMarkerShown !== nextState.isMarkerShown) return true;
+    return false;
+  }
 
   getGeoLocation = () => {
     if (navigator.geolocation) {
