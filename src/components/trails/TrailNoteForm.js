@@ -3,13 +3,15 @@ import React, { Component } from "react";
 import { compose } from "redux";
 import { connect } from "react-redux";
 import { firestoreConnect } from "react-redux-firebase";
+import { firebaseConnect } from "react-redux-firebase";
 
 class TrailNoteForm extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      notes: this.props.trail.notes
+      notes: this.props.trail.id ? this.props.trail.id : "No notes",
+      id: this.props.id
     };
 
     this.handleOnChange = this.handleOnChange.bind(this);
@@ -22,15 +24,19 @@ class TrailNoteForm extends Component {
 
   noteSubmit(e) {
     e.preventDefault();
-    const { trail, firestore } = this.props;
+    const { firestore } = this.props;
+    const { id } = this.state;
+
     const updTrail = {
       notes: this.state.notes
     };
+
     e.target.value = "";
-    firestore.update({ collection: "trailmarks", doc: trail.id }, updTrail);
+    firestore.update({ collection: "trailmarks", doc: id }, updTrail);
   }
 
   render() {
+    console.log(this.state);
     return (
       <div style={{ height: "100vh" }}>
         <form onSubmit={this.noteSubmit}>
@@ -55,15 +61,10 @@ class TrailNoteForm extends Component {
   }
 }
 
-function getIDfromLocation() {
-  return window.location.pathname.split("/trail/")[1];
-}
-
 export default compose(
-  firestoreConnect(props => [
-    { collection: "trailmarks", storeAs: "trail", doc: getIDfromLocation() }
-  ]),
-  connect(({ firestore: { ordered } }, props) => ({
-    trail: ordered.trail && ordered.trail[0]
+  firebaseConnect(),
+  firestoreConnect([{ collection: "trailmarks" }]),
+  connect((state, props) => ({
+    trailmarks: state.firestore.ordered.trailmarks
   }))
 )(TrailNoteForm);

@@ -34,7 +34,8 @@ export default props => {
         </li>
 
         <li className={styles.li}>
-          <span className={styles.strongblue}>Link:</span> {url}
+          <span className={styles.strongblue}>Link:</span>{" "}
+          <a style={{ overflowWrap: "break-word" }}>{url}</a>
         </li>
         <li className={styles.li}>
           <span className={styles.strongblue}>Length:</span> {length} miles

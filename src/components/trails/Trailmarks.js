@@ -14,9 +14,8 @@ class Trailmarks extends Component {
   // getting from redux
 
   toggleComplete = () => {
-    this.this.setState();
+    this.setState();
   };
-
   render() {
     const { trailmarks } = this.props;
     const { auth } = this.props;

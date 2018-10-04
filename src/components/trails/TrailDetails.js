@@ -29,28 +29,35 @@ class TrailDetails extends Component {
   };
 
   render() {
-    const { trail } = this.props;
+    const { trails } = this.props;
+    const { id } = this.props.match.params;
     const { showNotes } = this.state;
+    let trail = null;
+    let notesForm = null;
 
-    let notesForm = "";
-
-    // Clickable Add Notes Form
-    if (showNotes) {
-      notesForm = (
-        <TrailNoteForm
-          trail={trail}
-          value={trail.notes}
-          style={{ textOverflow: "wrap", display: "block " }}
-        />
-      );
-    } else {
-      notesForm = null;
+    if (!(Object.keys(trails).length === 0 && trails.constructor === Object)) {
+      trail = trails.trailmarks[id];
+      console.log(trail);
+      if (showNotes) {
+        notesForm = (
+          <TrailNoteForm
+            trail={trail}
+            id={id}
+            value={trail.notes}
+            style={{ textOverflow: "wrap", display: "block " }}
+          />
+        );
+      } else {
+        notesForm = null;
+      }
     }
 
     if (trail) {
+      // Clickable Add Notes Form
+
       return (
         <div style={{ marginTop: "10vh" }}>
-          <div>
+          <div style={{ marginTop: "5rem" }}>
             <Link to="/trailmarks" className="btn btn-link">
               <i className="fas fa-arrow-circle-left" /> Back To Trailmarks
             </Link>
@@ -87,14 +94,8 @@ class TrailDetails extends Component {
 }
 
 export default compose(
-  firestoreConnect(props => [
-    {
-      collection: "trailmarks",
-      doc: props.match.params.id,
-      storeAs: "trail"
-    }
-  ]),
-  connect(({ firestore: { ordered } }, props) => ({
-    trail: ordered.trail && ordered.trail[0]
+  firestoreConnect(["trailmarks"]),
+  connect(state => ({
+    trails: state.firestore.data
   }))
 )(TrailDetails);

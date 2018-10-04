@@ -9,60 +9,75 @@ class CompletedToggle extends Component {
     super(props);
 
     this.state = {
-      completed: false
+      hikedStatus: false
     };
 
-    this.handleClick = this.handleClick.bind(this);
+    this.updateStatus = this.updateStatus.bind(this);
+  }
+  componentDidMount() {
+    this.hydrateStateWithLocalStorage();
+
+    // add event listener to save state to localStorage
+    // when user leaves/refreshes the page
+    window.addEventListener(
+      "beforeunload",
+      this.saveStateToLocalStorage.bind(this)
+    );
   }
 
-  handleClick() {
-    const { trailid, firestore } = this.props;
+  componentWillUnmount() {
+    window.removeEventListener(
+      "beforeunload",
+      this.saveStateToLocalStorage.bind(this)
+    );
 
-    this.setState({ completed: !this.state.completed });
-    const updTrail = {
-      status: this.state.completed
-    };
-
-    firestore.update({ collection: "trailmarks", doc: trailid }, updTrail);
-    console.log("handled");
-    console.log(this.state);
+    // saves if component has a chance to unmount
+    this.saveStateToLocalStorage();
   }
 
-  //////////////////
-  // balanceSubmit = e => {
-  //   e.preventDefault();
+  hydrateStateWithLocalStorage() {
+    if (localStorage.hasOwnProperty(this.props.trailid)) {
+      let value = localStorage.getItem(this.props.trailid);
+      try {
+        value = JSON.parse(value);
+        this.setState({ hikedStatus: value });
+      } catch (e) {
+        this.setState({ hikedStatus: value });
+      }
+    }
+  }
 
-  //   const { user, firestore } = this.props;
-  //   const { completed } = this.state;
+  saveStateToLocalStorage() {
+    localStorage.setItem(
+      this.props.trailid,
+      JSON.stringify(this.state.hikedStatus)
+    );
+    console.log("saved");
+  }
 
-  //   const clientUpdate = {
-  //     balance: parseFloat(balanceUpdateAmount)
-  //   };
+  updateStatus() {
+    // update react state
 
-  //   // Update in firestore
-  //   firestore.update({ collection: "users", doc: user.id }, clientUpdate);
-  // };
-  /////////////////////////
+    this.setState({ hikedStatus: !this.state.hikedStatus });
+  }
 
   render() {
-    console.log(this.props);
-    const { completed } = this.state;
-    console.log({ completed });
+    const { hikedStatus } = this.state;
 
     const icon = (
       <span
         className={classnames({
-          "text-success": completed,
-          "text-danger": !completed
+          "text-success": hikedStatus,
+          "text-danger": !hikedStatus
         })}
       >
         <i
           className={classnames({
-            "fas fa-check fa-lg": completed,
-            "fas fa-times fa-lg": !completed
+            "fas fa-check fa-lg": hikedStatus,
+            "fas fa-times fa-lg": !hikedStatus
           })}
           style={{ display: "inline" }}
-          onClick={this.handleClick}
+          onClick={this.updateStatus}
         />
       </span>
     );
@@ -75,7 +90,7 @@ export default compose(
     { collection: "trailmarks", storeAs: "trail", doc: props.trailid }
   ]),
   connect(({ firestore: { ordered } }, props) => ({
-    trailmark: ordered.trailmark && ordered.trailmark[0]
+    trailmark: ordered.trail && ordered.trail[0]
   }))
 )(CompletedToggle);
 
