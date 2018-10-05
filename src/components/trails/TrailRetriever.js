@@ -75,7 +75,12 @@ class TrailRetriever extends Component {
               backgroundColor: "rgba(161, 238, 252, 0.823)"
             }}
           >
-            <a href="/mapview">Try Again</a>
+            <a
+              style={{ textDecoration: "none", color: "#405185" }}
+              href="/mapview"
+            >
+              Try Again
+            </a>
           </Button>
         </TrailView>
       </div>

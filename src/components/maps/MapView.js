@@ -51,7 +51,7 @@ class MapView extends Component {
     const { showMap } = this.state;
     //set map component.
     const map = this.state.isMarkerShown ? (
-      <div className="container" style={{ marginTop: "20vh" }}>
+      <div className="container" style={{ marginTop: "6rem" }}>
         <MyFancyComponent currentLocation={this.state.currentLatLng} />
       </div>
     ) : (

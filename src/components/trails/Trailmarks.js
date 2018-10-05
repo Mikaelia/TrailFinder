@@ -98,7 +98,10 @@ class Trailmarks extends Component {
                     </td>
 
                     <td style={{ textAlign: "center" }}>
-                      <Link to={`/trail/${trail.id}`}>
+                      <Link
+                        to={`/trail/${trail.id}`}
+                        style={{ textDecoration: "none" }}
+                      >
                         <span className={styles.icon}>
                           <i
                             className="fas fa-angle-double-right fa-lg"

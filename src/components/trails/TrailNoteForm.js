@@ -10,7 +10,7 @@ class TrailNoteForm extends Component {
     super(props);
 
     this.state = {
-      notes: this.props.trail.id ? this.props.trail.id : "No notes",
+      notes: this.props.notes ? this.props.notes : "No notes",
       id: this.props.id
     };
 
@@ -32,6 +32,7 @@ class TrailNoteForm extends Component {
     };
 
     e.target.value = "";
+
     firestore.update({ collection: "trailmarks", doc: id }, updTrail);
   }
 

@@ -33,7 +33,7 @@ class TrailFinder extends React.Component {
       return (
         <div>
           <div className={styles.titles}>
-            <h1>Found! </h1>
+            <h1 style={{ color: "#405185" }}>Found! </h1>
             <p className="lead">Near that location... </p>
             <p className="text-secondary">
               <span className={styles.heavyblue}>Lat:</span> {lat}{" "}

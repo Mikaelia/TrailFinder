@@ -43,7 +43,7 @@ class TrailDetails extends Component {
           <TrailNoteForm
             trail={trail}
             id={id}
-            value={trail.notes}
+            notes={trail.notes}
             style={{ textOverflow: "wrap", display: "block " }}
           />
         );

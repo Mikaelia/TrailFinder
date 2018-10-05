@@ -1,7 +1,8 @@
-import styles from "../../styles/mapview.css";
 import Mapview from "../maps/MapView";
 import classnames from "classnames";
 import React, { Component } from "react";
+
+import styles from "../../styles/mapview.css";
 
 export default class Welcome extends Component {
   constructor(props) {
@@ -16,7 +17,12 @@ export default class Welcome extends Component {
   render() {
     return (
       <div>
-        <div className={styles.collapseDiv}>
+        <div
+          className={classnames({
+            [styles.collapseDiv]: !this.state.active,
+            [styles.hidden]: this.state.active
+          })}
+        >
           <h1 className={styles.header}>
             {" "}
             Let's Begin{" "}

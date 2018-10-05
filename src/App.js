@@ -23,13 +23,6 @@ class App extends Component {
           <div className="App" styles={{ height: "100vh" }}>
             <AppNavbar />
             <Switch>
-              {/* <Route path="/test" component={UserIsAuthenticated(Test)} /> */}
-
-              <Route
-                path="/trail/:id"
-                component={UserIsAuthenticated(TrailDetails)}
-              />
-
               <Route exact path="/" component={UserIsAuthenticated(Welcome)} />
               <Route path="/login" component={UserIsNotAuthenticated(Login)} />
               <Route
