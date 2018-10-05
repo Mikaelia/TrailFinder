@@ -21,10 +21,13 @@ class TrailDetails extends Component {
   };
 
   onDeleteClick = () => {
-    const { trail, firestore, history } = this.props;
+    const { firestore, history } = this.props;
+    const { id } = this.props.match.params;
+
+    console.log(id);
 
     firestore
-      .delete({ collection: "trailmarks", doc: trail.id })
+      .delete({ collection: "trailmarks", doc: id })
       .then(history.push("/trailmarks"));
   };
 
@@ -37,7 +40,7 @@ class TrailDetails extends Component {
 
     if (!(Object.keys(trails).length === 0 && trails.constructor === Object)) {
       trail = trails.trailmarks[id];
-      console.log(trail);
+
       if (showNotes) {
         notesForm = (
           <TrailNoteForm
