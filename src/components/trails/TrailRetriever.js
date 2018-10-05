@@ -53,13 +53,11 @@ class TrailRetriever extends Component {
       });
   }
 
-  onClick = e => {
+  saveTrail = e => {
     const newTrail = this.state.trail;
     const { firestore, history } = this.props;
 
-    firestore
-      .add({ collection: "trailmarks" }, newTrail)
-      .then(console.log("Saved!"));
+    firestore.add({ collection: "trailmarks" }, newTrail).then(alert("Saved!"));
   };
 
   render() {
@@ -68,7 +66,7 @@ class TrailRetriever extends Component {
     return (
       <div>
         <TrailView trailDetails={this.state.trail}>
-          <Button message="Save Trail" onClick={this.onClick} />
+          <Button message="Save Trail" onClick={this.saveTrail} />
           <Button
             style={{
               color: "rgb(70, 130, 208)",

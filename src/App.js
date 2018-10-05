@@ -14,6 +14,7 @@ import Login from "./components/auth/Login";
 import Register from "./components/auth/Register";
 import MapView from "./components/maps/MapView";
 import TrailView from "./components/trails/TrailView";
+import Weather from "./components/weather/Weather";
 
 class App extends Component {
   render() {
@@ -42,6 +43,7 @@ class App extends Component {
                 path="/returntrail/:lat/:lng"
                 component={UserIsAuthenticated(FindTrail)}
               />
+              <Route path="/weather" component={UserIsAuthenticated(Weather)} />
             </Switch>
           </div>
         </Router>

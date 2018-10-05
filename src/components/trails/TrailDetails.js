@@ -9,6 +9,7 @@ import Spinner from "../layout/Spinner";
 import TrailView from "./TrailView";
 import TrailNoteForm from "./TrailNoteForm";
 import Button from "../layout/Button";
+import Weather from "../weather/Weather";
 
 // Toggle Completed/ Not Completed
 // Show Notes
@@ -61,10 +62,18 @@ class TrailDetails extends Component {
       return (
         <div style={{ marginTop: "10vh" }}>
           <div style={{ marginTop: "5rem" }}>
-            <Link to="/trailmarks" className="btn btn-link">
+            <Weather lat={trail.latitude} lng={trail.longitude} />
+          </div>
+          <div style={{ marginTop: "1rem" }}>
+            <Link
+              to="/trailmarks"
+              style={{ textDecoration: "none" }}
+              className="btn btn-link"
+            >
               <i className="fas fa-arrow-circle-left" /> Back To Trailmarks
             </Link>
           </div>
+
           <div style={{ padding: "3rem 2rem" }}>
             <TrailView trailDetails={trail}>
               <Button
