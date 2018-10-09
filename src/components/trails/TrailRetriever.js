@@ -69,12 +69,12 @@ class TrailRetriever extends Component {
           <Button message="Save Trail" onClick={this.saveTrail} />
           <Button
             style={{
-              color: "rgb(70, 130, 208)",
-              backgroundColor: "rgba(161, 238, 252, 0.823)"
+              color: " rgb(69, 130, 209)",
+              backgroundColor: "rgb(69, 130, 209)"
             }}
           >
             <a
-              style={{ textDecoration: "none", color: "#405185" }}
+              style={{ textDecoration: "none", color: "white" }}
               href="/mapview"
             >
               Try Again

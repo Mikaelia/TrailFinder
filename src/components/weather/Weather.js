@@ -10,7 +10,7 @@ export default class Weather extends Component {
     location: ""
   };
 
-  componentWillMount() {
+  componentDidMount() {
     console.log(this.props);
     if (this.props.lat) this.getWeather(this.props.lat, this.props.lng);
   }
@@ -45,10 +45,9 @@ export default class Weather extends Component {
     const { condition, temp, wind, location } = this.state;
     return (
       <div className={styles.sitemessage}>
-        Current conditions in <i class="fas fa-long-arrow-alt-right" />
+        Current conditions in <i class="fas fa-long-arrow-alt-right" />{" "}
         <strong style={{ fontWeight: "600", color: "#3a4d85" }}>
-          {location}
-          <i class="fas fa-long-arrow-alt-right" />
+          {location} <i class="fas fa-long-arrow-alt-right" />
         </strong>{" "}
         Weather:
         {"  "}

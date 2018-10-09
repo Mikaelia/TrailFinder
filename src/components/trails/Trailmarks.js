@@ -13,8 +13,8 @@ import styles from "../../styles/trailmarks.css";
 class Trailmarks extends Component {
   // getting from redux
 
-  toggleComplete = () => {
-    this.setState();
+  state = {
+    trailsHiked: 0
   };
   render() {
     const { trailmarks } = this.props;
@@ -26,7 +26,7 @@ class Trailmarks extends Component {
       const usertrails = trailmarks.filter(trailmark => {
         return trailmark["uid"] === auth.uid;
       });
-      console.log(usertrails);
+
       if (usertrails.length) {
         return (
           <div className="container mt-4">
@@ -94,7 +94,7 @@ class Trailmarks extends Component {
                         borderTopRightRadius: ".4rem"
                       }}
                     >
-                      <CompletedToggle trailid={trail.id} />
+                      <CompletedToggle trailid={trail.id} onClick />
                     </td>
 
                     <td style={{ textAlign: "center" }}>
