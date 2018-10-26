@@ -4,6 +4,8 @@ A React web application for finding and saving hiking trails near you!
 
 ## ScreenShots
 
+![Login1](public/screenshots/login1.png?raw=true "login1")
+![Login2](public/screenshots/login2.png?raw=true "login2")
 ![Welcome](public/screenshots/Welcome.png?raw=true "Welcome")
 ![Trail Map](/public/screenshots/Map.png?raw=true "Map")
 ![Found Trail](/public/screenshots/Found.png?raw=true "Found Trail")
