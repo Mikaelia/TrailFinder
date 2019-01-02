@@ -162,10 +162,12 @@ module.exports = {
           // in the main CSS file.
           {
             test: /\.css$/,
-            loader: ExtractTextPlugin.extract(
-              "style",
-              "css?modules&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]"
-            )
+
+            // loader: ExtractTextPlugin.extract(
+            //   "style",
+            //   "css?modules&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]"
+            // )
+
             // Object.assign(
             //   {
             //     fallback: {
@@ -174,17 +176,18 @@ module.exports = {
             //         hmr: false
             //       }
             //     },
-            //     use: [
-            //       {
-            //         loader: require.resolve("css-loader"),
-            //         options: {
-            //           importLoaders: 1,
-            //           minimize: true,
-            //           sourceMap: shouldUseSourceMap,
-            //           modules: true,
-            //           localIdentName: "[name]__[local]__[hash:base64:5]"
-            //         }
-            //       },
+            use: [
+              {
+                loader: require.resolve("css-loader"),
+                options: {
+                  importLoaders: 1,
+                  minimize: true,
+                  sourceMap: shouldUseSourceMap,
+                  modules: true,
+                  localIdentName: "[name]__[local]__[hash:base64:5]"
+                }
+              }
+            ]
             //       {
             //         loader: require.resolve("postcss-loader"),
             //         options: {
@@ -207,7 +210,7 @@ module.exports = {
             //       }
             //     ]
             //   },
-            //   extractTextPluginOptions
+            // extractTextPluginOptions
             // )
             // )
             // Note: this won't work without `new ExtractTextPlugin()` in `plugins`.

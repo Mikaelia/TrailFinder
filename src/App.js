@@ -13,7 +13,6 @@ import Welcome from "./components/pages/Welcome";
 import Login from "./components/auth/Login";
 import Register from "./components/auth/Register";
 import MapView from "./components/maps/MapView";
-import TrailView from "./components/trails/TrailView";
 import Weather from "./components/weather/Weather";
 
 class App extends Component {
@@ -21,7 +20,7 @@ class App extends Component {
     return (
       <Provider store={store}>
         <Router>
-          <div className="App" styles={{ height: "100vh" }}>
+          <div className="App">
             <AppNavbar />
             <Switch>
               <Route exact path="/" component={UserIsAuthenticated(Welcome)} />

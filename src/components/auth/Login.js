@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import PropTypes from "prop-types";
 import { compose } from "redux";
 import { connect } from "react-redux";
 import { firebaseConnect } from "react-redux-firebase";
@@ -8,6 +7,7 @@ import Alert from "../layout/Alert";
 import BlockQuote from "../layout/BlockQuote";
 import styles from "../../styles/Login.css";
 import { Link } from "react-router-dom";
+import PropTypes from "prop-types";
 
 class Login extends Component {
   state = {

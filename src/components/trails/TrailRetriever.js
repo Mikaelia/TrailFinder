@@ -8,7 +8,6 @@ import { connect } from "react-redux";
 import TrailView from "./TrailView";
 import Button from "../layout/Button";
 
-import styles from "../../styles/text.css";
 // Executes call to TrailAPI and renders Trailview
 
 class TrailRetriever extends Component {
@@ -32,9 +31,10 @@ class TrailRetriever extends Component {
       .then(res => {
         console.log("res", res);
 
+        // THIS MUST BE WHERE BREAKING --> try/catch?
         if (res.data.trails.length === 0) {
           this.props.handler();
-          return;
+          return null;
         }
 
         const random = Math.floor(Math.random() * 200);

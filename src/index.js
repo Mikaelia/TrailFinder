@@ -10,13 +10,11 @@ registerServiceWorker();
 injectGlobal`
   /* Apply a natural box layout model to all elements, but allowing components to change */
 
-
   html {
     box-sizing: border-box;
     height: 100%
     background-color: rgb(70, 130, 208);
     background-color: aliceblue;
-    
   }
 
   *, *:before, *:after {
@@ -41,6 +39,7 @@ injectGlobal`
 
 `;
 
+// Enable HMR
 if (module.hot) {
   module.hot.accept();
 }
